@@ -21,14 +21,15 @@ export default class HelloWorldSceneAR extends Component {
     this.state = {
       text: "Initializing AR...",
       height: 5,
-      h: [1, 2, 3],
       width: 5,
-      scale: [0.3, 0.3, 0.1]
+      status: "height"
     };
 
     this._onInitialized = this._onInitialized.bind(this);
     this._onPinch = this._onPinch.bind(this);
     this._onRotate = this._onRotate.bind(this);
+    this._onButtonTap = this._onButtonTap.bind(this);
+    this._onButtonGaze = this._onButtonGaze.bind(this);
   }
 
   render() {
@@ -51,11 +52,12 @@ export default class HelloWorldSceneAR extends Component {
           source={require("./res/button.png")}
           gazeSource={require("./res/button.png")}
           tapSource={require("./res/button.png")}
-          position={[0.05, 0.05, -1]}
+          position={[-0.22, -0.6, -1]}
           height={0.25}
           width={0.25}
           onTap={this._onButtonTap}
           onGaze={this._onButtonGaze}
+          onClick={this._onButtonTap}
         />
       </ViroARScene>
     );
@@ -71,11 +73,16 @@ export default class HelloWorldSceneAR extends Component {
   }
   _onPinch(pinchState, scaleFactor, source) {
     if (pinchState == 2) {
-      this.setState({ height: scaleFactor, width: scaleFactor });
+      if (this.state.status === "width") {
+        this.setState({ width: scaleFactor });
+        return;
+      }
 
-      return;
+      if (this.state.status === "height") {
+        this.setState({ height: scaleFactor });
+        return;
+      }
     }
-    //set scale using native props to reflect pinch.
   }
   _onRotate(rotateState, rotationFactor, source) {
     if (rotateState == 3) {
@@ -87,14 +94,16 @@ export default class HelloWorldSceneAR extends Component {
 
   _onButtonGaze() {
     this.setState({
-      buttonStateTag: "onGaze"
+      status: "width"
     });
+    return;
   }
 
   _onButtonTap() {
     this.setState({
-      buttonStateTag: "onTap"
+      status: "width"
     });
+    return;
   }
 }
 
