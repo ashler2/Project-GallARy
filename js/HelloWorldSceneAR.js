@@ -1,41 +1,54 @@
-'use strict';
+"use strict";
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
 
 import {
   ViroARScene,
-  ViroText,
-  ViroConstants,
-} from 'react-viro';
+  ViroBox,
+  ViroMaterials,
+  ViroNode,
+  ViroImage,
+  ViroConstants
+} from "react-viro";
 
 export default class HelloWorldSceneAR extends Component {
-
   constructor() {
     super();
 
-    // Set initial state here
     this.state = {
-      text : "Initializing AR..."
+      text: "Initializing AR...",
+      times: [1, 2, 3, 4],
+      pos: 1
     };
 
-    // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
   }
 
   render() {
     return (
-      <ViroARScene onTrackingUpdated={this._onInitialized} >
-        <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />
+      <ViroARScene
+        onTrackingUpdated={this._onInitialized}
+        displayPointCloud={true}
+      >
+        <ViroNode position={[0, 0, 0]} dragType="FixedToWorld">
+          <ViroBox
+            position={[0, 0, -1]}
+            height={5}
+            width={5}
+            length={1}
+            scale={[0.3, 0.3, 0.1]}
+            materials={["grid"]}
+          />
+        </ViroNode>
       </ViroARScene>
     );
   }
-
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
-        text : "Hello World!"
+        text: "Hello World!"
       });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
@@ -43,14 +56,10 @@ export default class HelloWorldSceneAR extends Component {
   }
 }
 
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: 'Arial',
-    fontSize: 30,
-    color: '#ffffff',
-    textAlignVertical: 'center',
-    textAlign: 'center',  
-  },
+ViroMaterials.createMaterials({
+  grid: {
+    diffuseTexture: require("./res/grid_bg.jpg")
+  }
 });
 
 module.exports = HelloWorldSceneAR;
