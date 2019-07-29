@@ -29,7 +29,6 @@ export default class HelloWorldSceneAR extends Component {
     this._onPinch = this._onPinch.bind(this);
     this._onRotate = this._onRotate.bind(this);
     this._onButtonTap = this._onButtonTap.bind(this);
-    this._onButtonGaze = this._onButtonGaze.bind(this);
   }
 
   render() {
@@ -92,18 +91,20 @@ export default class HelloWorldSceneAR extends Component {
     //update rotation using setNativeProps
   }
 
-  _onButtonGaze() {
-    this.setState({
-      status: "width"
-    });
-    return;
-  }
-
   _onButtonTap() {
-    this.setState({
-      status: "width"
-    });
-    return;
+    if (this.state.status !== "width") {
+      this.setState({
+        status: "width"
+      });
+      return;
+    }
+
+    if (this.state.status === "width") {
+      this.setState({
+        status: "height"
+      });
+      return;
+    }
   }
 }
 
