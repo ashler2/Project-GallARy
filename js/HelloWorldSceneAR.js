@@ -10,7 +10,8 @@ import {
   ViroMaterials,
   ViroNode,
   ViroImage,
-  ViroConstants
+  ViroConstants,
+  ViroButton
 } from "react-viro";
 
 export default class HelloWorldSceneAR extends Component {
@@ -37,13 +38,24 @@ export default class HelloWorldSceneAR extends Component {
         displayPointCloud={true}
       >
         <ViroBox
-          position={[0, 0, -1]}
+          position={[0, 0, -2]}
           height={this.state.height}
           width={this.state.width}
           length={1}
           onPinch={this._onPinch}
           scale={[0.3, 0.3, 0.1]}
           materials={["grid"]}
+        />
+
+        <ViroButton
+          source={require("./res/button.png")}
+          gazeSource={require("./res/button.png")}
+          tapSource={require("./res/button.png")}
+          position={[0.05, 0.05, -1]}
+          height={0.25}
+          width={0.25}
+          onTap={this._onButtonTap}
+          onGaze={this._onButtonGaze}
         />
       </ViroARScene>
     );
@@ -71,6 +83,18 @@ export default class HelloWorldSceneAR extends Component {
       return;
     }
     //update rotation using setNativeProps
+  }
+
+  _onButtonGaze() {
+    this.setState({
+      buttonStateTag: "onGaze"
+    });
+  }
+
+  _onButtonTap() {
+    this.setState({
+      buttonStateTag: "onTap"
+    });
   }
 }
 
