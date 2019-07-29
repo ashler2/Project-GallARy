@@ -27,6 +27,7 @@ export default class HelloWorldSceneAR extends Component {
 
     this._onInitialized = this._onInitialized.bind(this);
     this._onPinch = this._onPinch.bind(this);
+    this._onRotate = this._onRotate.bind(this);
   }
 
   render() {
@@ -63,6 +64,13 @@ export default class HelloWorldSceneAR extends Component {
       return;
     }
     //set scale using native props to reflect pinch.
+  }
+  _onRotate(rotateState, rotationFactor, source) {
+    if (rotateState == 3) {
+      this.setState({ width: rotationFactor / 360 });
+      return;
+    }
+    //update rotation using setNativeProps
   }
 }
 
