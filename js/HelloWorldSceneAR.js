@@ -19,11 +19,14 @@ export default class HelloWorldSceneAR extends Component {
 
     this.state = {
       text: "Initializing AR...",
-      times: [1, 2, 3, 4],
-      pos: 1
+      height: 5,
+      h: [1, 2, 3],
+      width: 5,
+      scale: [0.3, 0.3, 0.1]
     };
 
     this._onInitialized = this._onInitialized.bind(this);
+    this._onPinch = this._onPinch.bind(this);
   }
 
   render() {
@@ -32,16 +35,15 @@ export default class HelloWorldSceneAR extends Component {
         onTrackingUpdated={this._onInitialized}
         displayPointCloud={true}
       >
-        <ViroNode position={[0, 0, 0]} dragType="FixedToWorld">
-          <ViroBox
-            position={[0, 0, -1]}
-            height={5}
-            width={5}
-            length={1}
-            scale={[0.3, 0.3, 0.1]}
-            materials={["grid"]}
-          />
-        </ViroNode>
+        <ViroBox
+          position={[0, 0, -1]}
+          height={this.state.height}
+          width={this.state.width}
+          length={1}
+          onPinch={this._onPinch}
+          scale={[0.3, 0.3, 0.1]}
+          materials={["grid"]}
+        />
       </ViroARScene>
     );
   }
@@ -53,6 +55,14 @@ export default class HelloWorldSceneAR extends Component {
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
     }
+  }
+  _onPinch(pinchState, scaleFactor, source) {
+    if (pinchState == 2) {
+      this.setState({ height: scaleFactor, width: scaleFactor });
+
+      return;
+    }
+    //set scale using native props to reflect pinch.
   }
 }
 
