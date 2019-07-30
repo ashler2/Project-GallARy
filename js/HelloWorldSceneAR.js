@@ -11,7 +11,8 @@ import {
   ViroNode,
   ViroImage,
   ViroConstants,
-  ViroButton
+  ViroButton,
+  ViroText
 } from "react-viro";
 
 export default class HelloWorldSceneAR extends Component {
@@ -20,6 +21,7 @@ export default class HelloWorldSceneAR extends Component {
 
     this.state = {
       text: "Initializing AR...",
+
       height: 5,
       width: 5,
       status: "height"
@@ -46,7 +48,17 @@ export default class HelloWorldSceneAR extends Component {
           scale={[0.3, 0.3, 0.1]}
           materials={["grid"]}
         />
-
+        {/* <ViroText
+          text={this.state.text}
+          textAlign="left"
+          textAlignVertical="top"
+          textLineBreakMode="justify"
+          textClipMode="clipToBounds"
+          color="#ff0000"
+          width={0.5}
+          height={0.5}
+          position={[0.5, 0.1, -1]}
+        /> */}
         <ViroButton
           source={require("./res/button.png")}
           gazeSource={require("./res/button.png")}
@@ -64,7 +76,7 @@ export default class HelloWorldSceneAR extends Component {
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
-        text: "Hello World!"
+        text: this.state.height.toString()
       });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
@@ -73,12 +85,23 @@ export default class HelloWorldSceneAR extends Component {
   _onPinch(pinchState, scaleFactor, source) {
     if (pinchState == 2) {
       if (this.state.status === "width") {
-        this.setState({ width: scaleFactor });
+        this.setState({ width: scaleFactor, text: scaleFactor.toString() });
         return;
       }
 
       if (this.state.status === "height") {
         this.setState({ height: scaleFactor });
+        return;
+      }
+    }
+    if (pinchState == 3) {
+      if (this.state.status === "width") {
+        this.setState({ width: scaleFactor, text: scaleFactor.toString() });
+        return;
+      }
+
+      if (this.state.status === "height") {
+        this.setState({ height: scaleFactor, text: scaleFactor.toString() });
         return;
       }
     }
