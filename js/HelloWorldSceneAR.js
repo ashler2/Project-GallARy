@@ -14,7 +14,7 @@ import {
   ViroButton,
   ViroText
 } from "react-viro";
-
+import Frame from "./Frame.js";
 export default class HelloWorldSceneAR extends Component {
   constructor() {
     super();
@@ -47,6 +47,13 @@ export default class HelloWorldSceneAR extends Component {
           onPinch={this._onPinch}
           scale={[0.3, 0.3, 0.1]}
           materials={["grid"]}
+        />
+        <Frame
+          size={[
+            this.state.height > this.state.width
+              ? this.state.width
+              : this.state.height
+          ]}
         />
         {/* <ViroText
           text={this.state.text}
