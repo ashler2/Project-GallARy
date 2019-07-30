@@ -24,7 +24,13 @@ export default class HelloWorldSceneAR extends Component {
 
       height: 5,
       width: 5,
-      status: "height"
+      status: "height",
+      images: [
+        require("./res/temp1.png"),
+        require("./res/temp2.png"),
+        require("./res/temp3.png"),
+        require("./res/temp4.png")
+      ]
     };
 
     this._onInitialized = this._onInitialized.bind(this);
@@ -34,6 +40,7 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   render() {
+    let { images } = this.state;
     return (
       <ViroARScene
         onTrackingUpdated={this._onInitialized}
@@ -48,13 +55,10 @@ export default class HelloWorldSceneAR extends Component {
           scale={[0.3, 0.3, 0.1]}
           materials={["grid"]}
         />
-        <Frame
-          size={[
-            this.state.height > this.state.width
-              ? this.state.width
-              : this.state.height
-          ]}
-        />
+        {images.map(image => {
+          return <Frame size={[this.state.height]} image={image} />;
+        })}
+
         {/* <ViroText
           text={this.state.text}
           textAlign="left"

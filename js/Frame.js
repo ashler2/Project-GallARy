@@ -13,7 +13,9 @@ import {
 export default class Frame extends Component {
   constructor(props) {
     super(props);
-    this.state = { position: [0, 0, -1.9] };
+    this.state = {
+      position: [0, 0, -1.9]
+    };
   }
 
   render() {
@@ -23,11 +25,12 @@ export default class Frame extends Component {
           height={0.2}
           width={0.2}
           position={this.state.position}
-          source={require("./res/placeHolder.png")}
+          source={this.props.image}
           // position={this.props.children.position}
           dragPlane={{
             planePoint: [0, 0, -1.9],
-            planeNormal: [0, 0, -1.9]
+            planeNormal: [0, 0, -1.9],
+            maxDistance: 5
           }}
           dragType={"FixedToPlane"}
           onDrag={this.handleDrag}
