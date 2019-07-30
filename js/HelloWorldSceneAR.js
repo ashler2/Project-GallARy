@@ -14,7 +14,7 @@ import {
   ViroButton,
   ViroText
 } from "react-viro";
-
+import Frame from "./Frame.js";
 export default class HelloWorldSceneAR extends Component {
   constructor() {
     super();
@@ -24,7 +24,13 @@ export default class HelloWorldSceneAR extends Component {
 
       height: 5,
       width: 5,
-      status: "height"
+      status: "height",
+      images: [
+        require("./res/temp1.png"),
+        require("./res/temp2.png"),
+        require("./res/temp3.png"),
+        require("./res/temp4.png")
+      ]
     };
 
     this._onInitialized = this._onInitialized.bind(this);
@@ -34,13 +40,14 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   render() {
+    let { images } = this.state;
     return (
       <ViroARScene
         onTrackingUpdated={this._onInitialized}
         displayPointCloud={true}
       >
         <ViroBox
-          position={[0, 0, -2]}
+          position={[0, 0, -0.2]}
           height={this.state.height}
           width={this.state.width}
           length={1}
@@ -48,6 +55,10 @@ export default class HelloWorldSceneAR extends Component {
           scale={[0.3, 0.3, 0.1]}
           materials={["grid"]}
         />
+        {images.map(image => {
+          return <Frame size={[this.state.height]} image={image} />;
+        })}
+
         {/* <ViroText
           text={this.state.text}
           textAlign="left"
