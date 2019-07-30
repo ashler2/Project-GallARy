@@ -54,6 +54,7 @@ export default class HelloWorldSceneAR extends Component {
           onPinch={this._onPinch}
           scale={[0.3, 0.3, 0.1]}
           materials={["grid"]}
+          opacity={0.3}
         />
         {images.map(image => {
           return <Frame size={[this.state.height]} image={image} />;

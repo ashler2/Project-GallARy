@@ -8,8 +8,10 @@ import {
   ViroImage,
   ViroConstants,
   ViroButton,
-  ViroText
+  ViroText,
+  ViroFlexView
 } from "react-viro";
+
 export default class Frame extends Component {
   constructor(props) {
     super(props);
@@ -22,10 +24,9 @@ export default class Frame extends Component {
     return (
       <View>
         <ViroImage
-          scale={[0.2, 0.2, 0.2]}
+          // scale={[0.2, 0.2, 0.2]}
           position={this.state.position}
           source={this.props.image}
-          // position={this.props.children.position}
           dragPlane={{
             planePoint: [0, 0, -0.1],
             planeNormal: [0, 0, -0.1],
@@ -37,11 +38,15 @@ export default class Frame extends Component {
       </View>
     );
   }
-  componentDidUpdate = (prevProps, prevState) => {
-    if (this.state.position !== prevState.position) {
-    }
-  };
+
+  handleMove = event => {};
   handleDrag = (dragToPos, source) => {
-    this.setState({ position: [dragToPos[0], dragToPos[1], dragToPos[2]] });
+    let transformed = [...dragToPos];
+    // transformed = transformed.map(pos => {
+    //   return Math.round(pos);
+    // });
+    this.setState({
+      position: [Math.round(transformed[0]), Math.round(transformed[1]), -0.1]
+    });
   };
 }
