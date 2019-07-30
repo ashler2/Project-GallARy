@@ -14,7 +14,7 @@ export default class Frame extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: [0, 0, -1.9]
+      position: [0, 0, -0.1]
     };
   }
 
@@ -22,14 +22,13 @@ export default class Frame extends Component {
     return (
       <View>
         <ViroImage
-          height={0.2}
-          width={0.2}
+          scale={[0.2, 0.2, 0.2]}
           position={this.state.position}
           source={this.props.image}
           // position={this.props.children.position}
           dragPlane={{
-            planePoint: [0, 0, -1.9],
-            planeNormal: [0, 0, -1.9],
+            planePoint: [0, 0, -0.1],
+            planeNormal: [0, 0, -0.1],
             maxDistance: 5
           }}
           dragType={"FixedToPlane"}

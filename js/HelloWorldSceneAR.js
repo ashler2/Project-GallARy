@@ -47,7 +47,7 @@ export default class HelloWorldSceneAR extends Component {
         displayPointCloud={true}
       >
         <ViroBox
-          position={[0, 0, -2]}
+          position={[0, 0, -0.2]}
           height={this.state.height}
           width={this.state.width}
           length={1}
