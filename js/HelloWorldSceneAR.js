@@ -10,7 +10,9 @@ import {
   ViroMaterials,
   ViroNode,
   ViroImage,
-  ViroConstants
+  ViroConstants,
+  ViroButton,
+  ViroText
 } from "react-viro";
 
 export default class HelloWorldSceneAR extends Component {
@@ -19,15 +21,19 @@ export default class HelloWorldSceneAR extends Component {
 
     this.state = {
       text: "Initializing AR...",
+
       height: 5,
-      h: [1, 2, 3],
       width: 5,
-      scale: [0.3, 0.3, 0.1]
+      status: "height"
     };
 
     this._onInitialized = this._onInitialized.bind(this);
     this._onPinch = this._onPinch.bind(this);
     this._onRotate = this._onRotate.bind(this);
+<<<<<<< HEAD
+=======
+    this._onButtonTap = this._onButtonTap.bind(this);
+>>>>>>> pinch
   }
 
   render() {
@@ -37,7 +43,7 @@ export default class HelloWorldSceneAR extends Component {
         displayPointCloud={true}
       >
         <ViroBox
-          position={[0, 0, -1]}
+          position={[0, 0, -2]}
           height={this.state.height}
           width={this.state.width}
           length={1}
@@ -45,13 +51,35 @@ export default class HelloWorldSceneAR extends Component {
           scale={[0.3, 0.3, 0.1]}
           materials={["grid"]}
         />
+        {/* <ViroText
+          text={this.state.text}
+          textAlign="left"
+          textAlignVertical="top"
+          textLineBreakMode="justify"
+          textClipMode="clipToBounds"
+          color="#ff0000"
+          width={0.5}
+          height={0.5}
+          position={[0.5, 0.1, -1]}
+        /> */}
+        <ViroButton
+          source={require("./res/button.png")}
+          gazeSource={require("./res/button.png")}
+          tapSource={require("./res/button.png")}
+          position={[-0.22, -0.6, -1]}
+          height={0.25}
+          width={0.25}
+          onTap={this._onButtonTap}
+          onGaze={this._onButtonGaze}
+          onClick={this._onButtonTap}
+        />
       </ViroARScene>
     );
   }
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
-        text: "Hello World!"
+        text: this.state.height.toString()
       });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
@@ -59,11 +87,50 @@ export default class HelloWorldSceneAR extends Component {
   }
   _onPinch(pinchState, scaleFactor, source) {
     if (pinchState == 2) {
-      this.setState({ height: scaleFactor, width: scaleFactor });
+      if (this.state.status === "width") {
+        this.setState({ width: scaleFactor, text: scaleFactor.toString() });
+        return;
+      }
 
+      if (this.state.status === "height") {
+        this.setState({ height: scaleFactor });
+        return;
+      }
+    }
+    if (pinchState == 3) {
+      if (this.state.status === "width") {
+        this.setState({ width: scaleFactor, text: scaleFactor.toString() });
+        return;
+      }
+
+      if (this.state.status === "height") {
+        this.setState({ height: scaleFactor, text: scaleFactor.toString() });
+        return;
+      }
+    }
+  }
+  _onRotate(rotateState, rotationFactor, source) {
+    if (rotateState == 3) {
+      this.setState({ width: rotationFactor / 360 });
       return;
     }
-    //set scale using native props to reflect pinch.
+    //update rotation using setNativeProps
+  }
+
+  _onButtonTap() {
+    if (this.state.status !== "width") {
+      this.setState({
+        status: "width"
+      });
+      return;
+    }
+
+    if (this.state.status === "width") {
+      this.setState({
+        status: "height"
+      });
+      return;
+    }
   }
 }
 
