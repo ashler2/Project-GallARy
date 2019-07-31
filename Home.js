@@ -7,9 +7,11 @@ import {
 } from "react-navigation";
 import App from "./App";
 import Hello from "./Hello";
+import CameraRoll from "./CameraRoll";
 const switcher = createSwitchNavigator({
-  welcomeScreen: App,
-  anotherScreen: Hello
+  cameraRollScreen: CameraRoll,
+  anotherScreen: Hello,
+  welcomeScreen: App
 });
 const PageNavigator = createAppContainer(switcher);
 
