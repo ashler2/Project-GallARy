@@ -1,7 +1,7 @@
-import { AppRegistry } from 'react-native';
-import App from './App.js';
+import { AppRegistry } from "react-native";
+import Home from "./Home.js";
 
-AppRegistry.registerComponent('GallAry', () => App);
+AppRegistry.registerComponent("GallAry", () => Home);
 
-// The below line is necessary for use with the TestBed App
-AppRegistry.registerComponent('ViroSample', () => App);
+// The below line is necessary for use with the TestBed Home
+AppRegistry.registerComponent("ViroSample", () => Home);

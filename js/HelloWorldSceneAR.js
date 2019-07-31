@@ -35,7 +35,6 @@ export default class HelloWorldSceneAR extends Component {
 
     this._onInitialized = this._onInitialized.bind(this);
     this._onPinch = this._onPinch.bind(this);
-    this._onRotate = this._onRotate.bind(this);
     this._onButtonTap = this._onButtonTap.bind(this);
   }
 
@@ -54,6 +53,7 @@ export default class HelloWorldSceneAR extends Component {
           onPinch={this._onPinch}
           scale={[0.3, 0.3, 0.1]}
           materials={["grid"]}
+          opacity={0.3}
         />
         {images.map(image => {
           return <Frame size={[this.state.height]} image={image} />;
