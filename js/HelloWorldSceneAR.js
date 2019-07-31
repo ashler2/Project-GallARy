@@ -35,7 +35,6 @@ export default class HelloWorldSceneAR extends Component {
 
     this._onInitialized = this._onInitialized.bind(this);
     this._onPinch = this._onPinch.bind(this);
-    this._onRotate = this._onRotate.bind(this);
     this._onButtonTap = this._onButtonTap.bind(this);
   }
 
