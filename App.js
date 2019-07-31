@@ -7,11 +7,7 @@ import {
   PixelRatio,
   TouchableHighlight
 } from "react-native";
-import {
-  createStackNavigator,
-  createAppContainer,
-  createSwitchNavigator
-} from "react-navigation";
+
 import { ViroARSceneNavigator } from "react-viro";
 var sharedProps = {
   apiKey: "7BB9691F-8936-47AC-9FB7-12FD72152B10"
@@ -30,42 +26,70 @@ export default class ViroSample extends Component {
 
   render() {
     return (
-      <View style={localStyles.viroContainer}>
-        <View style={localStyles.instructions}>
-          <TouchableHighlight
-            style={localStyles.buttons}
-            underlayColor={"#68a0ff"}
-          >
-            <Text style={localStyles.buttonText}>AR</Text>
-          </TouchableHighlight>
+      <View style={localStyles.baseView}>
+        <View style={localStyles.ARView}>
+          <ViroARSceneNavigator
+            {...this.state.sharedProps}
+            initialScene={{ scene: InitialARScene }}
+          />
         </View>
-        <Text
-          style={{
-            color: "white"
-          }}
-        >
-          Align yellow line below along floor-wall intersection. Tap red button
-          when happy.
-        </Text>
-        <ViroARSceneNavigator
-          {...this.state.sharedProps}
-          initialScene={{ scene: InitialARScene }}
-        />
+        <View style={localStyles.instructions}>
+          <Text style={localStyles.instructionsText}>
+            Align yellow line below along floor-wall intersection. Tap red
+            button when happy.
+          </Text>
+          <Text style={localStyles.instructionsBar} />
+        </View>
       </View>
     );
   }
 }
 
 var localStyles = StyleSheet.create({
-  viroContainer: {
-    flex: 3,
+  baseView: {
+    position: "relative",
+    flex: 9,
+    zIndex: 0,
+    backgroundColor: "rgba(52, 52, 52, 0.8)",
+    backfaceVisibility: "hidden",
+    alignSelf: "stretch",
+    width: "100%"
+    // opacity: 1
+  },
+  ARView: {
+    position: "relative",
+    width: "100%",
+    flex: 1,
     marginTop: 40,
     marginBottom: 40,
-    paddingTop: 30
+
+    zIndex: 10
   },
   instructions: {
+    flex: 1,
+    alignContent: "stretch",
     position: "absolute",
-    marginTop: 40
+    top: 150,
+
+    alignSelf: "center",
+    padding: 10,
+    width: "100%",
+    fontSize: 40,
+    textAlign: "center",
+    backgroundColor: "transparent",
+    backfaceVisibility: "hidden",
+    marginTop: 40,
+    zIndex: 10
+  },
+  instructionsText: {
+    backgroundColor: "yellow",
+    fontSize: 30
+  },
+  instructionsBar: {
+    width: "110%",
+    backgroundColor: "blue",
+    position: "absolute",
+    top: 400
   },
   outer: {
     flex: 1,
