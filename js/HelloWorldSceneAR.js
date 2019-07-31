@@ -21,16 +21,10 @@ export default class HelloWorldSceneAR extends Component {
 
     this.state = {
       text: "Initializing AR...",
-
       height: 5,
       width: 5,
       status: "height",
-      images: [
-        require("./res/temp1.png"),
-        require("./res/temp2.png"),
-        require("./res/temp3.png"),
-        require("./res/temp4.png")
-      ]
+      images: this.props.arSceneNavigator.viroAppProps
     };
 
     this._onInitialized = this._onInitialized.bind(this);
@@ -40,8 +34,8 @@ export default class HelloWorldSceneAR extends Component {
 
   render() {
     let { images } = this.state;
-    const { navigation } = this.props;
-    console.log(navigation);
+
+    console.log(this.state);
     return (
       <ViroARScene
         onTrackingUpdated={this._onInitialized}

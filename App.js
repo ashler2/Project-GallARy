@@ -39,8 +39,8 @@ var AR_NAVIGATOR_TYPE = "AR";
 var defaultNavigatorType = UNSET;
 
 export default class ViroSample extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       navigatorType: defaultNavigatorType,
@@ -58,6 +58,7 @@ export default class ViroSample extends Component {
   // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
   // if you are building a specific type of experience.
   render() {
+    console.log(this.props.navigation.state.params.images);
     if (this.state.navigatorType == UNSET) {
       return this._getExperienceSelector();
     } else if (this.state.navigatorType == AR_NAVIGATOR_TYPE) {
@@ -92,6 +93,7 @@ export default class ViroSample extends Component {
       <ViroARSceneNavigator
         {...this.state.sharedProps}
         initialScene={{ scene: InitialARScene }}
+        viroAppProps={this.props.navigation.state.params.images}
       />
     );
   }
