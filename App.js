@@ -89,10 +89,31 @@ export default class ViroSample extends Component {
   // Returns the ViroARSceneNavigator which will start the AR experience
   _getARNavigator() {
     return (
-      <ViroARSceneNavigator
-        {...this.state.sharedProps}
-        initialScene={{ scene: InitialARScene }}
-      />
+      <View style={localStyles.viroContainer}>
+        <Text
+          style={{
+            color: "white",
+            backgroundColor: "rgb(223,142,114)",
+            position: "absolute"
+          }}
+        >
+          Align yellow line below along floor-wall intersection. Tap red button
+          when happy.
+        </Text>
+        <ViroARSceneNavigator
+          {...this.state.sharedProps}
+          initialScene={{ scene: InitialARScene }}
+        />
+        <View style={localStyles.instructions}>
+          <TouchableHighlight
+            style={localStyles.buttons}
+            onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
+            underlayColor={"#68a0ff"}
+          >
+            <Text style={localStyles.buttonText}>AR</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
     );
   }
   // () => {
@@ -118,20 +139,27 @@ export default class ViroSample extends Component {
 
 var localStyles = StyleSheet.create({
   viroContainer: {
-    flex: 1,
-    backgroundColor: "black"
+    backgroundColor: "rgb(223,142,114)",
+    position: "relative",
+    flex: 3,
+    marginTop: 10,
+    marginBottom: 10,
+    paddingTop: 30
+  },
+  instructions: {
+    color: "white",
+    position: "relative"
   },
   outer: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "black"
+    height: 2
   },
   inner: {
     flex: 1,
     flexDirection: "column",
-    alignItems: "center",
-    backgroundColor: "black"
+    alignItems: "center"
   },
   titleText: {
     paddingTop: 30,
@@ -152,7 +180,7 @@ var localStyles = StyleSheet.create({
     paddingBottom: 20,
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor: "#68a0cf",
+
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#fff"
@@ -164,7 +192,7 @@ var localStyles = StyleSheet.create({
     paddingBottom: 10,
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor: "#68a0cf",
+
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#fff"
