@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import { AppRegistry, StyleSheet, Text, View } from "react-native";
-
+import { AppRegistry, StyleSheet, Text, View, Button } from "react-native";
+import {
+  createStackNavigator,
+  createAppContainer,
+  createSwitchNavigator
+} from "react-navigation";
 import CameraRollPicker from "react-native-camera-roll-picker";
 
 export default class CameraRoll extends Component {
@@ -15,19 +19,17 @@ export default class CameraRoll extends Component {
     this.getSelectedImages = this.getSelectedImages.bind(this);
   }
 
-  getSelectedImages(images, current) {
+  getSelectedImages = (images, current) => {
     var num = images.length;
-
     this.setState({
       num: num,
       selected: images
     });
-
-    console.log(current);
     console.log(this.state.selected);
-  }
+  };
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.content}>
@@ -35,6 +37,14 @@ export default class CameraRoll extends Component {
             <Text style={styles.bold}> {this.state.num} </Text> images has been
             selected
           </Text>
+          <Button
+            title="Choose Photos"
+            onPress={() => {
+              navigation.navigate("welcomeScreen", {
+                images: this.state.selected
+              });
+            }}
+          />
         </View>
         <CameraRollPicker
           groupTypes="SavedPhotos"

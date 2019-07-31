@@ -16,8 +16,8 @@ import {
 } from "react-viro";
 import Frame from "./Frame.js";
 export default class HelloWorldSceneAR extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       text: "Initializing AR...",
@@ -40,6 +40,8 @@ export default class HelloWorldSceneAR extends Component {
 
   render() {
     let { images } = this.state;
+    const { navigation } = this.props;
+    console.log(navigation);
     return (
       <ViroARScene
         onTrackingUpdated={this._onInitialized}

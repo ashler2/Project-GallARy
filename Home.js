@@ -9,8 +9,8 @@ import App from "./App";
 import Hello from "./Hello";
 import CameraRoll from "./CameraRoll";
 const switcher = createSwitchNavigator({
-  cameraRollScreen: CameraRoll,
   anotherScreen: Hello,
+  cameraRollScreen: CameraRoll,
   welcomeScreen: App
 });
 const PageNavigator = createAppContainer(switcher);

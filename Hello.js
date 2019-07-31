@@ -7,7 +7,11 @@ import {
   ScrollView,
   Image
 } from "react-native";
-
+import {
+  createStackNavigator,
+  createAppContainer,
+  createSwitchNavigator
+} from "react-navigation";
 export default class Hello extends Component {
   constructor(props) {
     super(props);
@@ -15,13 +19,17 @@ export default class Hello extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.paragraph}>gallARy</Text>
         <Image style={styles.logo} source={require("./js/res/gallery.jpg")} />
         <Button
           title="Choose Photos"
-          onPress={() => this.props.navigation.navigate("CameraRoll")}
+          onPress={() => {
+            navigation.navigate("cameraRollScreen");
+            console.log("hi");
+          }}
         />
       </View>
     );
