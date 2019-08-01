@@ -21,14 +21,11 @@ export default class Frame extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <View>
         <ViroImage
-          scale={[
-            (0.2 * this.props.image.width) / this.props.image.height,
-            0.2,
-            0.2
-          ]}
+          scale={[(1 * this.props.image.width) / this.props.image.height, 1, 1]}
           position={this.state.position}
           source={this.props.image}
           dragPlane={{
@@ -49,8 +46,13 @@ export default class Frame extends Component {
     // transformed = transformed.map(pos => {
     //   return Math.round(pos);
     // });
+
     this.setState({
-      position: [Math.round(transformed[0]), Math.round(transformed[1]), -0.1]
+      position: [
+        Math.round(transformed[0] * 5) / 5,
+        Math.round(transformed[1] * 5) / 5,
+        -0.1
+      ]
     });
   };
 }

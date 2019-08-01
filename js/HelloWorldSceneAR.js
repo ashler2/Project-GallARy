@@ -72,9 +72,11 @@ export default class HelloWorldSceneAR extends Component {
           materials={["grid"]}
           opacity={0.5}
         />
+
         {images.map((image, index) => {
           return <Frame size={[this.state.height]} image={image} key={index} />;
         })}
+
         <ViroButton
           source={require("./res/button.png")}
           gazeSource={require("./res/button.png")}
