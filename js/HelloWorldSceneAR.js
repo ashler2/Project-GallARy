@@ -51,8 +51,8 @@ export default class HelloWorldSceneAR extends Component {
           materials={["grid"]}
           opacity={0.3}
         />
-        {images.map(image => {
-          return <Frame size={[this.state.height]} image={image} />;
+        {images.map((image, index) => {
+          return <Frame size={[this.state.height]} image={image} key={index} />;
         })}
 
         {/* <ViroText

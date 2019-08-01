@@ -1,12 +1,3 @@
-/**
- * Copyright (c) 2017-present, Viro, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
 import React, { Component } from "react";
 import {
   AppRegistry,
@@ -16,124 +7,101 @@ import {
   PixelRatio,
   TouchableHighlight
 } from "react-native";
-import {
-  createStackNavigator,
-  createAppContainer,
-  createSwitchNavigator
-} from "react-navigation";
+
 import { ViroARSceneNavigator } from "react-viro";
 var sharedProps = {
   apiKey: "7BB9691F-8936-47AC-9FB7-12FD72152B10"
 };
 
-// Sets the default scene you want for AR and VR
 var InitialARScene = require("./js/HelloWorldSceneAR");
-// var InitialVRScene = require("./js/HelloWorldScene");
-
-var UNSET = "UNSET";
-// var VR_NAVIGATOR_TYPE = "VR";
-var AR_NAVIGATOR_TYPE = "AR";
-
-// This determines which type of experience to launch in, or UNSET, if the user should
-// be presented with a choice of AR or VR. By default, we offer the user a choice.
-var defaultNavigatorType = UNSET;
 
 export default class ViroSample extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      navigatorType: defaultNavigatorType,
       sharedProps: sharedProps
     };
-    this._getExperienceSelector = this._getExperienceSelector.bind(this);
-    this._getARNavigator = this._getARNavigator.bind(this);
-    // this._getVRNavigator = this._getVRNavigator.bind(this);
-    this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(
-      this
-    );
-    this._exitViro = this._exitViro.bind(this);
   }
 
-  // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
-  // if you are building a specific type of experience.
   render() {
-    console.log(this.props.navigation.state.params.images);
-    if (this.state.navigatorType == UNSET) {
-      return this._getExperienceSelector();
-    } else if (this.state.navigatorType == AR_NAVIGATOR_TYPE) {
-      return this._getARNavigator();
-    }
-  }
-
-  // Presents the user with a choice of an AR or VR experience
-  _getExperienceSelector() {
-    const { navigation } = this.props;
     return (
-      <View style={localStyles.outer}>
-        <View style={localStyles.inner}>
-          <Text style={localStyles.titleText}>
-            Choose your desired experience:
+      <View style={localStyles.baseView}>
+        <View style={localStyles.ARView}>
+          <ViroARSceneNavigator
+            {...this.state.sharedProps}
+            initialScene={{ scene: InitialARScene }}
+            viroAppProps={this.props.navigation.state.params.images}
+          />
+        </View>
+        <View style={localStyles.instructions}>
+          <Text style={localStyles.instructionsText}>
+            Align yellow line below along floor-wall intersection. Tap red
+            button when happy.
           </Text>
-
-          <TouchableHighlight
-            style={localStyles.buttons}
-            onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
-            underlayColor={"#68a0ff"}
-          >
-            <Text style={localStyles.buttonText}>AR</Text>
-          </TouchableHighlight>
+          <Text style={localStyles.instructionsBar} />
         </View>
       </View>
     );
   }
-  // Returns the ViroARSceneNavigator which will start the AR experience
-  _getARNavigator() {
-    return (
-      <ViroARSceneNavigator
-        {...this.state.sharedProps}
-        initialScene={{ scene: InitialARScene }}
-        viroAppProps={this.props.navigation.state.params.images}
-      />
-    );
-  }
-  // () => {
-  //   navigation.navigate("anotherScreen");
-  // }
-  // This function returns an anonymous/lambda function to be used
-  // by the experience selector buttons
-  _getExperienceButtonOnPress(navigatorType) {
-    return () => {
-      this.setState({
-        navigatorType: navigatorType
-      });
-    };
-  }
-
-  // This function "exits" Viro by setting the navigatorType to UNSET.
-  _exitViro() {
-    this.setState({
-      navigatorType: UNSET
-    });
-  }
 }
 
 var localStyles = StyleSheet.create({
-  viroContainer: {
+  baseView: {
+    position: "relative",
+    flex: 9,
+    zIndex: 0,
+    backgroundColor: "rgba(52, 52, 52, 0.8)",
+    backfaceVisibility: "hidden",
+    alignSelf: "stretch",
+    width: "100%"
+    // opacity: 1
+  },
+  ARView: {
+    position: "relative",
+    width: "100%",
     flex: 1,
-    backgroundColor: "black"
+    marginTop: 40,
+    marginBottom: 40,
+
+    zIndex: 10
+  },
+  instructions: {
+    flex: 1,
+    alignContent: "stretch",
+    position: "absolute",
+    top: 150,
+
+    alignSelf: "center",
+    padding: 10,
+    width: "100%",
+    fontSize: 40,
+    textAlign: "center",
+    backgroundColor: "transparent",
+    backfaceVisibility: "hidden",
+    marginTop: 40,
+    zIndex: 10
+  },
+  instructionsText: {
+    backgroundColor: "yellow",
+    fontSize: 30
+  },
+  instructionsBar: {
+    width: "110%",
+    backgroundColor: "blue",
+    position: "absolute",
+    top: 400
   },
   outer: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "black"
+    height: 2
   },
   inner: {
     flex: 1,
     flexDirection: "column",
-    alignItems: "center",
-    backgroundColor: "black"
+    alignItems: "center"
   },
   titleText: {
     paddingTop: 30,
@@ -143,9 +111,15 @@ var localStyles = StyleSheet.create({
     fontSize: 25
   },
   buttonText: {
-    color: "#fff",
-    textAlign: "center",
-    fontSize: 20
+    flex: 1,
+    position: "absolute",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    top: "25%",
+    right: 10,
+    width: 80,
+    height: 220
   },
   buttons: {
     height: 80,
@@ -154,7 +128,7 @@ var localStyles = StyleSheet.create({
     paddingBottom: 20,
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor: "#68a0cf",
+
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#fff"
@@ -166,7 +140,7 @@ var localStyles = StyleSheet.create({
     paddingBottom: 10,
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor: "#68a0cf",
+
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#fff"

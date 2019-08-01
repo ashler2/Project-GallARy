@@ -27,8 +27,3 @@ export default class Home extends Component {
     return <PageNavigator />;
   }
 }
-// const AppNavigator = createStackNavigator({
-//   Home: {
-//     screen: HomeScreen
-//   }
-// });
