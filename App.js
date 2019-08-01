@@ -5,7 +5,8 @@ import {
   View,
   StyleSheet,
   PixelRatio,
-  TouchableHighlight
+  TouchableHighlight,
+  Button
 } from "react-native";
 
 import { ViroARSceneNavigator } from "react-viro";
@@ -22,20 +23,33 @@ export default class ViroSample extends Component {
     this.state = {
       sharedProps: sharedProps,
       status: false,
-      fullCamera: "100%"
+      fullCamera: "100%",
+      toggler: "height"
     };
   }
 
   render() {
     return (
-      <View style={{ height: "100%", backfaceVisibility: "hidden" }}>
-        <View style={{ height: this.state.fullCamera }}>
+      <View
+        style={{
+          height: "100%",
+          backfaceVisibility: "hidden"
+        }}
+      >
+        <View
+          style={{
+            height: this.state.fullCamera
+          }}
+        >
           <ViroARSceneNavigator
             {...this.state.sharedProps}
-            initialScene={{ scene: InitialARScene }}
+            initialScene={{
+              scene: InitialARScene
+            }}
             viroAppProps={{
               images: this.props.navigation.state.params.images,
-              clicked: this.state.status
+              clicked: this.state.status,
+              control: this.state.toggler
             }}
           />
         </View>
@@ -51,7 +65,10 @@ export default class ViroSample extends Component {
               underlayColor="#00000000"
               style={{ backgroundColor: "blue" }}
               onPress={() => {
-                this.setState({ status: true, fullCamera: "87%" });
+                this.setState({
+                  status: true,
+                  fullCamera: "87%"
+                });
               }}
             >
               <Text>Begin!</Text>
@@ -71,11 +88,54 @@ export default class ViroSample extends Component {
           backfaceVisibility: "hidden"
         }}
       >
-        <View style={{ flex: 1, backgroundColor: "powderblue" }} />
-        <View style={{ flex: 1, backgroundColor: "skyblue" }} />
-        <View style={{ flex: 1, backgroundColor: "steelblue" }} />
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "powderblue"
+          }}
+        >
+          <TouchableHighlight
+            underlayColor="#00000000"
+            title="Learn More"
+            style={{
+              backgroundColor: "blue",
+              height: "100%",
+              textAlign: "center"
+            }}
+            onPress={() => {
+              this._onButtonTap();
+            }}
+          >
+            <Text>Begin!</Text>
+          </TouchableHighlight>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "skyblue"
+          }}
+        />
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "steelblue"
+          }}
+        />
       </View>
     );
+  }
+  _onButtonTap() {
+    if (this.state.toggler !== "width") {
+      return this.setState({
+        toggler: "width"
+      });
+    }
+
+    if (this.state.toggler === "width") {
+      return this.setState({
+        toggler: "height"
+      });
+    }
   }
 }
 
