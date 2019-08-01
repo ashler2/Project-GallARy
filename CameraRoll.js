@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { AppRegistry, StyleSheet, Text, View, Button } from "react-native";
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity
+} from "react-native";
 import {
   createStackNavigator,
   createAppContainer,
@@ -34,17 +40,19 @@ export default class CameraRoll extends Component {
       <View style={styles.container}>
         <View style={styles.content}>
           <Text style={styles.text}>
-            <Text style={styles.bold}> {this.state.num} </Text> images has been
+            <Text style={styles.bold}> {this.state.num} </Text> images have been
             selected
           </Text>
-          <Button
-            title="Choose Photos"
+          <TouchableOpacity
             onPress={() => {
               navigation.navigate("arScreen", {
                 images: this.state.selected
               });
             }}
-          />
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>Create gallARy</Text>
+          </TouchableOpacity>
         </View>
         <CameraRollPicker
           groupTypes="SavedPhotos"
@@ -63,13 +71,12 @@ export default class CameraRoll extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F6AE2D"
+    backgroundColor: "#254E58"
   },
   content: {
-    marginTop: 15,
     height: 50,
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
     flexWrap: "wrap"
   },
@@ -78,6 +85,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     color: "#fff"
   },
+
+  button: {
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#fff"
+  },
+  buttonText: {
+    fontSize: 16,
+    alignItems: "center",
+    color: "#fff",
+    padding: 7,
+    fontWeight: "bold"
+  },
+
   bold: {
     fontWeight: "bold"
   },
