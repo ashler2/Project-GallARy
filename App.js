@@ -21,14 +21,15 @@ export default class ViroSample extends Component {
 
     this.state = {
       sharedProps: sharedProps,
-      status: false
+      status: false,
+      fullCamera: "100%"
     };
   }
 
   render() {
     return (
-      <View style={localStyles.baseView}>
-        <View style={localStyles.ARView}>
+      <View style={{ height: "100%", backfaceVisibility: "hidden" }}>
+        <View style={{ height: this.state.fullCamera }}>
           <ViroARSceneNavigator
             {...this.state.sharedProps}
             initialScene={{ scene: InitialARScene }}
@@ -38,7 +39,9 @@ export default class ViroSample extends Component {
             }}
           />
         </View>
-        {this.state.status ? null : (
+        {this.state.status ? (
+          this.NavBar()
+        ) : (
           <View style={localStyles.instructions}>
             <Text style={localStyles.instructionsText}>
               Align yellow line below along floor-wall intersection. Tap red
@@ -48,7 +51,7 @@ export default class ViroSample extends Component {
               underlayColor="#00000000"
               style={{ backgroundColor: "blue" }}
               onPress={() => {
-                this.setState({ status: true });
+                this.setState({ status: true, fullCamera: "87%" });
               }}
             >
               <Text>Begin!</Text>
@@ -59,9 +62,29 @@ export default class ViroSample extends Component {
       </View>
     );
   }
+  NavBar() {
+    return (
+      <View
+        style={{
+          height: "10%",
+          flexDirection: "row",
+          backfaceVisibility: "hidden"
+        }}
+      >
+        <View style={{ flex: 1, backgroundColor: "powderblue" }} />
+        <View style={{ flex: 1, backgroundColor: "skyblue" }} />
+        <View style={{ flex: 1, backgroundColor: "steelblue" }} />
+      </View>
+    );
+  }
 }
 
 var localStyles = StyleSheet.create({
+  nav: {
+    flex: 1,
+    flexDirection: "row",
+    backfaceVisibility: "visible"
+  },
   baseView: {
     position: "relative",
     flex: 9,
@@ -83,6 +106,7 @@ var localStyles = StyleSheet.create({
   },
   instructions: {
     flex: 1,
+
     alignContent: "stretch",
     position: "absolute",
     top: 150,
@@ -98,14 +122,18 @@ var localStyles = StyleSheet.create({
     zIndex: 10
   },
   instructionsText: {
+    backfaceVisibility: "hidden",
     backgroundColor: "yellow",
-    fontSize: 30
+    fontSize: 30,
+    zIndex: 100
   },
   instructionsBar: {
+    backfaceVisibility: "hidden",
     width: "110%",
     backgroundColor: "blue",
     position: "absolute",
-    top: 400
+    top: 400,
+    zIndex: 100
   },
   outer: {
     flex: 1,
