@@ -12,7 +12,8 @@ import {
   ViroImage,
   ViroConstants,
   ViroButton,
-  ViroText
+  ViroText,
+  ViroFlexView
 } from "react-viro";
 import Frame from "./Frame.js";
 export default class HelloWorldSceneAR extends Component {
@@ -74,18 +75,6 @@ export default class HelloWorldSceneAR extends Component {
         {images.map((image, index) => {
           return <Frame size={[this.state.height]} image={image} key={index} />;
         })}
-
-        {/* <ViroText
-          text={this.state.text}
-          textAlign="left"
-          textAlignVertical="top"
-          textLineBreakMode="justify"
-          textClipMode="clipToBounds"
-          color="#ff0000"
-          width={0.5}
-          height={0.5}
-          position={[0.5, 0.1, -1]}
-        /> */}
         <ViroButton
           source={require("./res/button.png")}
           gazeSource={require("./res/button.png")}

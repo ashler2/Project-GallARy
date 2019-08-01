@@ -24,7 +24,11 @@ export default class Frame extends Component {
     return (
       <View>
         <ViroImage
-          // scale={[0.2, 0.2, 0.2]}
+          scale={[
+            (0.2 * this.props.image.width) / this.props.image.height,
+            0.2,
+            0.2
+          ]}
           position={this.state.position}
           source={this.props.image}
           dragPlane={{
