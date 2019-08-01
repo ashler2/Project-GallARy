@@ -24,7 +24,8 @@ export default class ViroSample extends Component {
       sharedProps: sharedProps,
       status: false,
       fullCamera: "100%",
-      toggler: "height"
+      toggler: "height",
+      toggleAllowed: true
     };
   }
 
@@ -104,7 +105,9 @@ export default class ViroSample extends Component {
               textAlign: "center"
             }}
             onPress={() => {
-              this._onButtonTap();
+              {
+                this.state.toggleAllowed ? this._onButtonTap() : null;
+              }
             }}
           >
             <Text>Toggle canvas re-sizing!</Text>
@@ -121,9 +124,27 @@ export default class ViroSample extends Component {
             flex: 1,
             backgroundColor: "steelblue"
           }}
-        />
+        >
+          <TouchableHighlight
+            underlayColor="#00000000"
+            title="Learn More"
+            style={{
+              backgroundColor: "blue",
+              height: "100%",
+              textAlign: "center"
+            }}
+            onPress={() => {
+              this.allowToggle();
+            }}
+          >
+            <Text>Confirm canvas size</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
+  }
+  allowToggle() {
+    this.setState({ toggleAllowed: false });
   }
   _onButtonTap() {
     if (this.state.toggler !== "width") {
