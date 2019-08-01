@@ -40,7 +40,7 @@ export default class CameraRoll extends Component {
           <Button
             title="Choose Photos"
             onPress={() => {
-              navigation.navigate("welcomeScreen", {
+              navigation.navigate("arScreen", {
                 images: this.state.selected
               });
             }}
