@@ -53,29 +53,30 @@ export default class ViroSample extends Component {
             }}
           />
         </View>
-        {this.state.status ? (
-          this.NavBar()
-        ) : (
-          <View style={localStyles.instructions}>
-            <Text style={localStyles.instructionsText}>
-              Align yellow line below along floor-wall intersection. Tap red
-              button when happy.
-            </Text>
-            <TouchableHighlight
-              underlayColor="#00000000"
-              style={{ backgroundColor: "blue" }}
-              onPress={() => {
-                this.setState({
-                  status: true,
-                  fullCamera: "87%"
-                });
-              }}
-            >
-              <Text>Begin!</Text>
-            </TouchableHighlight>
-            <Text style={localStyles.instructionsBar} />
-          </View>
-        )}
+        {this.state.status ? this.NavBar() : this.overlay()}
+      </View>
+    );
+  }
+  overlay() {
+    return (
+      <View style={localStyles.instructions}>
+        <Text style={localStyles.instructionsText}>
+          Align yellow line below along floor-wall intersection. Tap red button
+          when happy.
+        </Text>
+        <TouchableHighlight
+          underlayColor="#00000000"
+          style={{ backgroundColor: "blue" }}
+          onPress={() => {
+            this.setState({
+              status: true,
+              fullCamera: "87%"
+            });
+          }}
+        >
+          <Text>Begin!</Text>
+        </TouchableHighlight>
+        <Text style={localStyles.instructionsBar} />
       </View>
     );
   }
@@ -106,7 +107,7 @@ export default class ViroSample extends Component {
               this._onButtonTap();
             }}
           >
-            <Text>Begin!</Text>
+            <Text>Toggle canvas re-sizing!</Text>
           </TouchableHighlight>
         </View>
         <View
