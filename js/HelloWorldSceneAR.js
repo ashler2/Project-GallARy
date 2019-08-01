@@ -70,7 +70,7 @@ export default class HelloWorldSceneAR extends Component {
           onPinch={this._onPinch}
           scale={[0.3, 0.3, 0.1]}
           materials={["grid"]}
-          opacity={0.3}
+          opacity={0.5}
         />
         {images.map((image, index) => {
           return <Frame size={[this.state.height]} image={image} key={index} />;
@@ -141,7 +141,7 @@ export default class HelloWorldSceneAR extends Component {
 
 ViroMaterials.createMaterials({
   grid: {
-    diffuseTexture: require("./res/grid_bg.jpg")
+    diffuseTexture: require("./res/grid.png")
   }
 });
 
