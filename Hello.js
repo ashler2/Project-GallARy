@@ -1,6 +1,17 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
-
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  ScrollView,
+  Image
+} from "react-native";
+import {
+  createStackNavigator,
+  createAppContainer,
+  createSwitchNavigator
+} from "react-navigation";
 export default class Hello extends Component {
   constructor(props) {
     super(props);
@@ -8,17 +19,40 @@ export default class Hello extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
-      <View
-        style={{
-          backgroundColor: "white",
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center"
-        }}
-      >
-        <Text style={{ color: "red" }}> Hello WORRRLLLLDDDDDDD </Text>
+      <View style={styles.container}>
+        <Text style={styles.paragraph}>gallARy</Text>
+        <Image style={styles.logo} source={require("./js/res/gallery.jpg")} />
+        <Button
+          title="Choose Photos"
+          onPress={() => {
+            navigation.navigate("cameraRollScreen");
+            console.log("hi");
+          }}
+        />
       </View>
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 24,
+    backgroundColor: "white"
+  },
+  paragraph: {
+    margin: 20,
+    fontFamily: "ShadowsIntoLight-Regular",
+    fontSize: 30,
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  logo: {
+    height: 240,
+    width: 280,
+    margin: 20
+  },
+  button: {}
+});

@@ -16,8 +16,8 @@ var sharedProps = {
 var InitialARScene = require("./js/HelloWorldSceneAR");
 
 export default class ViroSample extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       sharedProps: sharedProps
@@ -31,6 +31,7 @@ export default class ViroSample extends Component {
           <ViroARSceneNavigator
             {...this.state.sharedProps}
             initialScene={{ scene: InitialARScene }}
+            viroAppProps={this.props.navigation.state.params.images}
           />
         </View>
         <View style={localStyles.instructions}>
