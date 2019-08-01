@@ -20,7 +20,8 @@ export default class ViroSample extends Component {
     super(props);
 
     this.state = {
-      sharedProps: sharedProps
+      sharedProps: sharedProps,
+      status: false
     };
   }
 
@@ -31,16 +32,30 @@ export default class ViroSample extends Component {
           <ViroARSceneNavigator
             {...this.state.sharedProps}
             initialScene={{ scene: InitialARScene }}
-            viroAppProps={this.props.navigation.state.params.images}
+            viroAppProps={{
+              images: this.props.navigation.state.params.images,
+              clicked: this.state.status
+            }}
           />
         </View>
-        <View style={localStyles.instructions}>
-          <Text style={localStyles.instructionsText}>
-            Align yellow line below along floor-wall intersection. Tap red
-            button when happy.
-          </Text>
-          <Text style={localStyles.instructionsBar} />
-        </View>
+        {this.state.status ? null : (
+          <View style={localStyles.instructions}>
+            <Text style={localStyles.instructionsText}>
+              Align yellow line below along floor-wall intersection. Tap red
+              button when happy.
+            </Text>
+            <TouchableHighlight
+              underlayColor="#00000000"
+              style={{ backgroundColor: "blue" }}
+              onPress={() => {
+                this.setState({ status: true });
+              }}
+            >
+              <Text>Begin!</Text>
+            </TouchableHighlight>
+            <Text style={localStyles.instructionsBar} />
+          </View>
+        )}
       </View>
     );
   }

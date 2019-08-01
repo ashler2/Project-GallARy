@@ -24,7 +24,8 @@ export default class HelloWorldSceneAR extends Component {
       height: 5,
       width: 5,
       status: "height",
-      images: this.props.arSceneNavigator.viroAppProps
+      images: this.props.arSceneNavigator.viroAppProps.images,
+      render: this.props.arSceneNavigator.viroAppProps.clicked
     };
 
     this._onInitialized = this._onInitialized.bind(this);
@@ -35,7 +36,26 @@ export default class HelloWorldSceneAR extends Component {
   render() {
     let { images } = this.state;
 
+    console.log(this.props.arSceneNavigator.viroAppProps);
     console.log(this.state);
+    return this.state.render ? (
+      this.statusTrue()
+    ) : (
+      <ViroARScene
+        onTrackingUpdated={this._onInitialized}
+        displayPointCloud={true}
+      />
+    );
+  }
+  componentDidUpdate = (prevProps, prevState) => {
+    if (
+      this.props.arSceneNavigator.viroAppProps.clicked !== this.state.render
+    ) {
+      this.setState({ render: true });
+    }
+  };
+  statusTrue = () => {
+    let { images } = this.state;
     return (
       <ViroARScene
         onTrackingUpdated={this._onInitialized}
@@ -79,7 +99,7 @@ export default class HelloWorldSceneAR extends Component {
         />
       </ViroARScene>
     );
-  }
+  };
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
@@ -113,14 +133,6 @@ export default class HelloWorldSceneAR extends Component {
       }
     }
   }
-  _onRotate(rotateState, rotationFactor, source) {
-    if (rotateState == 3) {
-      this.setState({ width: rotationFactor / 360 });
-      return;
-    }
-    //update rotation using setNativeProps
-  }
-
   _onButtonTap() {
     if (this.state.status !== "width") {
       this.setState({
