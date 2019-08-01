@@ -45,6 +45,7 @@
 		8F1854278AAD40CE8CDCBC61 /* libRNReanimated.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7093E8975034E13B8FD0567 /* libRNReanimated.a */; };
 		2A99CBAF12314D80AA760626 /* libRNReanimated-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BE06FB2725D449E9598593A /* libRNReanimated-tvOS.a */; };
 		B867CC4C14484A248DF7E4F5 /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6C8D193C87145559C550E36 /* libimageCropPicker.a */; };
+		4335DD42268A4147A080D84A /* Tajawal-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0697F8E0942E4EBCBD1F8567 /* Tajawal-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -362,6 +363,7 @@
 		1BE06FB2725D449E9598593A /* libRNReanimated-tvOS.a */ = {isa = PBXFileReference; name = "libRNReanimated-tvOS.a"; path = "libRNReanimated-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		53C5E9FDD4184DA099A7AAD9 /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; name = "imageCropPicker.xcodeproj"; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		D6C8D193C87145559C550E36 /* libimageCropPicker.a */ = {isa = PBXFileReference; name = "libimageCropPicker.a"; path = "libimageCropPicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		0697F8E0942E4EBCBD1F8567 /* Tajawal-Regular.ttf */ = {isa = PBXFileReference; name = "Tajawal-Regular.ttf"; path = "../assets/fonts/Tajawal-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -610,6 +612,7 @@
 				00E356EF1AD99517003FC87E /* GallAryTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				0A35047A2E4E4E9AAB2E28E4 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -635,6 +638,15 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		0A35047A2E4E4E9AAB2E28E4 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				0697F8E0942E4EBCBD1F8567 /* Tajawal-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -1082,6 +1094,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				4335DD42268A4147A080D84A /* Tajawal-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

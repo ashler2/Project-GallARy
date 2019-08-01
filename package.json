@@ -8,6 +8,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "@ant-design/react-native": "^3.1.11",
+    "antd": "^3.20.7",
+    "native-base": "^2.13.4",
     "react": "16.8.3",
     "react-native": "0.59.3",
     "react-native-camera-roll-multi-picker": "^1.2.41",
@@ -17,6 +20,7 @@
     "react-native-image-picker": "^1.0.1",
     "react-native-image-picker-m": "^0.26.8",
     "react-native-reanimated": "^1.1.0",
+    "react-native-typography": "^1.4.1",
     "react-navigation": "^3.11.1",
     "react-viro": "2.15.0"
   },
@@ -30,5 +34,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
   }
 }
