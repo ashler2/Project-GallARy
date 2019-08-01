@@ -30,14 +30,11 @@ export default class HelloWorldSceneAR extends Component {
 
     this._onInitialized = this._onInitialized.bind(this);
     this._onPinch = this._onPinch.bind(this);
-    this._onButtonTap = this._onButtonTap.bind(this);
   }
 
   render() {
     let { images } = this.state;
 
-    console.log(this.props.arSceneNavigator.viroAppProps);
-    console.log(this.state);
     return this.state.render ? (
       this.statusTrue()
     ) : (
@@ -52,6 +49,13 @@ export default class HelloWorldSceneAR extends Component {
       this.props.arSceneNavigator.viroAppProps.clicked !== this.state.render
     ) {
       this.setState({ render: true });
+    }
+    if (
+      this.props.arSceneNavigator.viroAppProps.control !== this.state.status
+    ) {
+      this.setState({
+        status: this.props.arSceneNavigator.viroAppProps.control
+      });
     }
   };
   statusTrue = () => {
@@ -74,29 +78,6 @@ export default class HelloWorldSceneAR extends Component {
         {images.map((image, index) => {
           return <Frame size={[this.state.height]} image={image} key={index} />;
         })}
-
-        {/* <ViroText
-          text={this.state.text}
-          textAlign="left"
-          textAlignVertical="top"
-          textLineBreakMode="justify"
-          textClipMode="clipToBounds"
-          color="#ff0000"
-          width={0.5}
-          height={0.5}
-          position={[0.5, 0.1, -1]}
-        /> */}
-        <ViroButton
-          source={require("./res/button.png")}
-          gazeSource={require("./res/button.png")}
-          tapSource={require("./res/button.png")}
-          position={[-0.22, -0.6, -1]}
-          height={0.25}
-          width={0.25}
-          onTap={this._onButtonTap}
-          onGaze={this._onButtonGaze}
-          onClick={this._onButtonTap}
-        />
       </ViroARScene>
     );
   };
@@ -115,7 +96,6 @@ export default class HelloWorldSceneAR extends Component {
         this.setState({ width: scaleFactor, text: scaleFactor.toString() });
         return;
       }
-
       if (this.state.status === "height") {
         this.setState({ height: scaleFactor });
         return;
@@ -126,26 +106,10 @@ export default class HelloWorldSceneAR extends Component {
         this.setState({ width: scaleFactor, text: scaleFactor.toString() });
         return;
       }
-
       if (this.state.status === "height") {
         this.setState({ height: scaleFactor, text: scaleFactor.toString() });
         return;
       }
-    }
-  }
-  _onButtonTap() {
-    if (this.state.status !== "width") {
-      this.setState({
-        status: "width"
-      });
-      return;
-    }
-
-    if (this.state.status === "width") {
-      this.setState({
-        status: "height"
-      });
-      return;
     }
   }
 }

@@ -5,7 +5,8 @@ import {
   View,
   StyleSheet,
   PixelRatio,
-  TouchableHighlight
+  TouchableHighlight,
+  Button
 } from "react-native";
 
 import { ViroARSceneNavigator } from "react-viro";
@@ -21,47 +22,130 @@ export default class ViroSample extends Component {
 
     this.state = {
       sharedProps: sharedProps,
-      status: false
+      status: false,
+      fullCamera: "100%",
+      toggler: "height"
     };
   }
 
   render() {
     return (
-      <View style={localStyles.baseView}>
-        <View style={localStyles.ARView}>
+      <View
+        style={{
+          height: "100%",
+          backfaceVisibility: "hidden"
+        }}
+      >
+        <View
+          style={{
+            height: this.state.fullCamera
+          }}
+        >
           <ViroARSceneNavigator
             {...this.state.sharedProps}
-            initialScene={{ scene: InitialARScene }}
+            initialScene={{
+              scene: InitialARScene
+            }}
             viroAppProps={{
               images: this.props.navigation.state.params.images,
-              clicked: this.state.status
+              clicked: this.state.status,
+              control: this.state.toggler
             }}
           />
         </View>
-        {this.state.status ? null : (
-          <View style={localStyles.instructions}>
-            <Text style={localStyles.instructionsText}>
-              Align yellow line below along floor-wall intersection. Tap red
-              button when happy.
-            </Text>
-            <TouchableHighlight
-              underlayColor="#00000000"
-              style={{ backgroundColor: "blue" }}
-              onPress={() => {
-                this.setState({ status: true });
-              }}
-            >
-              <Text>Begin!</Text>
-            </TouchableHighlight>
-            <Text style={localStyles.instructionsBar} />
-          </View>
-        )}
+        {this.state.status ? this.NavBar() : this.overlay()}
       </View>
     );
+  }
+  overlay() {
+    return (
+      <View style={localStyles.instructions}>
+        <Text style={localStyles.instructionsText}>
+          Align yellow line below along floor-wall intersection. Tap red button
+          when happy.
+        </Text>
+        <TouchableHighlight
+          underlayColor="#00000000"
+          style={{ backgroundColor: "blue" }}
+          onPress={() => {
+            this.setState({
+              status: true,
+              fullCamera: "87%"
+            });
+          }}
+        >
+          <Text>Begin!</Text>
+        </TouchableHighlight>
+        <Text style={localStyles.instructionsBar} />
+      </View>
+    );
+  }
+  NavBar() {
+    return (
+      <View
+        style={{
+          height: "10%",
+          flexDirection: "row",
+          backfaceVisibility: "hidden"
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "powderblue"
+          }}
+        >
+          <TouchableHighlight
+            underlayColor="#00000000"
+            title="Learn More"
+            style={{
+              backgroundColor: "blue",
+              height: "100%",
+              textAlign: "center"
+            }}
+            onPress={() => {
+              this._onButtonTap();
+            }}
+          >
+            <Text>Toggle canvas re-sizing!</Text>
+          </TouchableHighlight>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "skyblue"
+          }}
+        />
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "steelblue"
+          }}
+        />
+      </View>
+    );
+  }
+  _onButtonTap() {
+    if (this.state.toggler !== "width") {
+      return this.setState({
+        toggler: "width"
+      });
+    }
+
+    if (this.state.toggler === "width") {
+      return this.setState({
+        toggler: "height"
+      });
+    }
   }
 }
 
 var localStyles = StyleSheet.create({
+  nav: {
+    flex: 1,
+    flexDirection: "row",
+    backfaceVisibility: "visible"
+  },
   baseView: {
     position: "relative",
     flex: 9,
@@ -83,6 +167,7 @@ var localStyles = StyleSheet.create({
   },
   instructions: {
     flex: 1,
+
     alignContent: "stretch",
     position: "absolute",
     top: 150,
@@ -98,14 +183,18 @@ var localStyles = StyleSheet.create({
     zIndex: 10
   },
   instructionsText: {
+    backfaceVisibility: "hidden",
     backgroundColor: "yellow",
-    fontSize: 30
+    fontSize: 30,
+    zIndex: 100
   },
   instructionsBar: {
+    backfaceVisibility: "hidden",
     width: "110%",
     backgroundColor: "blue",
     position: "absolute",
-    top: 400
+    top: 400,
+    zIndex: 100
   },
   outer: {
     flex: 1,
