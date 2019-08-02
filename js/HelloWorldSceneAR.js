@@ -16,6 +16,7 @@ import {
   ViroFlexView
 } from "react-viro";
 import Frame from "./Frame.js";
+
 export default class HelloWorldSceneAR extends Component {
   constructor(props) {
     super(props);
@@ -47,7 +48,7 @@ export default class HelloWorldSceneAR extends Component {
   componentDidUpdate = (prevProps, prevState) => {
     const {
       arSceneNavigator: {
-        viroAppProps: { clicked, control, sliderHeight, sliderWidth }
+        viroAppProps: { clicked, control, sliderHeight, sliderWidth, images }
       }
     } = this.props;
 
@@ -64,6 +65,9 @@ export default class HelloWorldSceneAR extends Component {
     }
     if (control === "height" && sliderHeight !== this.state.height) {
       this.setState({ height: sliderHeight });
+    }
+    if (images !== this.state.images) {
+      this.setState({ images: images });
     }
   };
   statusTrue = () => {

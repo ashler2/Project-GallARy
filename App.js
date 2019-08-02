@@ -30,7 +30,8 @@ export default class ViroSample extends Component {
       toggleAllowed: true,
       sliderValueWidth: 5,
       sliderValueHeight: 5,
-      sliderValue: 5
+      sliderValue: 5,
+      imagePressed: []
     };
   }
 
@@ -53,7 +54,7 @@ export default class ViroSample extends Component {
               scene: InitialARScene
             }}
             viroAppProps={{
-              images: this.props.navigation.state.params.images,
+              images: this.state.imagePressed,
               clicked: this.state.status,
               control: this.state.toggler,
               sliderHeight: this.state.sliderValueHeight,
@@ -183,16 +184,37 @@ export default class ViroSample extends Component {
         {images.map((image, index) => {
           return (
             <View
+              key={index}
               style={{
                 flex: 1,
-                backgroundColor: "powderblue",
-                key: index
+                backgroundColor: "powderblue"
               }}
             >
-              <Image
-                style={{ width: "90%", height: "90%", margin: 2 }}
-                source={{ uri: image.uri }}
-              />
+              <TouchableHighlight
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  margin: 2
+                }}
+                onPress={() => {
+                  let arr = [];
+
+                  arr.push(...this.state.imagePressed, image);
+                  this.setState({ imagePressed: arr });
+                  console.log(this.state.imagePressed);
+                  images.splice(index, 1);
+                }}
+              >
+                <Image
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    margin: 2,
+                    resizeMode: "cover"
+                  }}
+                  source={{ uri: image.uri }}
+                />
+              </TouchableHighlight>
             </View>
           );
         })}
