@@ -22,7 +22,6 @@ export default class Frame extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <View>
         <ViroImage

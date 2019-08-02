@@ -6,10 +6,12 @@ import {
   StyleSheet,
   PixelRatio,
   TouchableHighlight,
-  Button
+  Button,
+  Image
 } from "react-native";
-
+import Slider from "react-native-slider";
 import { ViroARSceneNavigator } from "react-viro";
+
 var sharedProps = {
   apiKey: "7BB9691F-8936-47AC-9FB7-12FD72152B10"
 };
@@ -24,7 +26,12 @@ export default class ViroSample extends Component {
       sharedProps: sharedProps,
       status: false,
       fullCamera: "100%",
-      toggler: "height"
+      toggler: "height",
+      toggleAllowed: true,
+      sliderValueWidth: 5,
+      sliderValueHeight: 5,
+      sliderValue: 5,
+      imagePressed: []
     };
   }
 
@@ -47,9 +54,11 @@ export default class ViroSample extends Component {
               scene: InitialARScene
             }}
             viroAppProps={{
-              images: this.props.navigation.state.params.images,
+              images: this.state.imagePressed,
               clicked: this.state.status,
-              control: this.state.toggler
+              control: this.state.toggler,
+              sliderHeight: this.state.sliderValueHeight,
+              sliderWidth: this.state.sliderValueWidth
             }}
           />
         </View>
@@ -80,7 +89,9 @@ export default class ViroSample extends Component {
       </View>
     );
   }
-  NavBar() {
+  NavBar = () => (this.state.toggleAllowed ? this.sizeBar() : this.photoBar());
+
+  sizeBar() {
     return (
       <View
         style={{
@@ -100,11 +111,12 @@ export default class ViroSample extends Component {
             title="Learn More"
             style={{
               backgroundColor: "blue",
-              height: "100%",
-              textAlign: "center"
+              height: "100%"
             }}
             onPress={() => {
-              this._onButtonTap();
+              {
+                this.state.toggleAllowed ? this._onButtonTap() : null;
+              }
             }}
           >
             <Text>Toggle canvas re-sizing!</Text>
@@ -112,18 +124,119 @@ export default class ViroSample extends Component {
         </View>
         <View
           style={{
-            flex: 1,
+            flex: 2,
             backgroundColor: "skyblue"
           }}
-        />
+        >
+          <Slider
+            value={this.state.sliderValue}
+            onValueChange={value => {
+              if (this.state.toggler === "width") {
+                this.setState({ sliderValueWidth: value });
+              }
+
+              if (this.state.toggler === "height") {
+                this.setState({ sliderValueHeight: value });
+              }
+            }}
+            maximumValue={10}
+            style={{
+              margin: 10,
+              alignItems: "stretch",
+              justifyContent: "center"
+            }}
+          />
+        </View>
         <View
           style={{
             flex: 1,
             backgroundColor: "steelblue"
           }}
-        />
+        >
+          <TouchableHighlight
+            underlayColor="#00000000"
+            title="Learn More"
+            style={{
+              backgroundColor: "blue",
+              height: "100%"
+            }}
+            onPress={() => {
+              this.allowToggle();
+            }}
+          >
+            <Text>Confirm canvas size</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
+  }
+  photoBar() {
+    const images = this.props.navigation.state.params.images;
+    console.log(images);
+    return (
+      <View
+        style={{
+          height: "10%",
+          flexDirection: "row",
+          backfaceVisibility: "hidden"
+        }}
+      >
+        {images.map((image, index) => {
+          return (
+            <View
+              key={index}
+              style={{
+                flex: 1,
+                backgroundColor: "powderblue"
+              }}
+            >
+              <TouchableHighlight
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  margin: 2
+                }}
+                onPress={() => {
+                  let arr = [];
+
+                  arr.push(...this.state.imagePressed, image);
+                  this.setState({ imagePressed: arr });
+                  console.log(this.state.imagePressed);
+                  images.splice(index, 1);
+                }}
+              >
+                <Image
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    margin: 2,
+                    resizeMode: "cover"
+                  }}
+                  source={{ uri: image.uri }}
+                />
+              </TouchableHighlight>
+            </View>
+          );
+        })}
+      </View>
+    );
+  }
+  componentDidUpdate() {
+    if (
+      this.state.toggler === "width" &&
+      this.state.sliderValue !== this.state.sliderValueWidth
+    ) {
+      this.setState({ sliderValue: this.state.sliderValueWidth });
+    }
+    if (
+      this.state.toggler === "height" &&
+      this.state.sliderValue !== this.state.sliderValueHeight
+    ) {
+      this.setState({ sliderValue: this.state.sliderValueHeight });
+    }
+  }
+  allowToggle() {
+    this.setState({ toggleAllowed: false });
   }
   _onButtonTap() {
     if (this.state.toggler !== "width") {
