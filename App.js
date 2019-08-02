@@ -6,10 +6,12 @@ import {
   StyleSheet,
   PixelRatio,
   TouchableHighlight,
-  Button
+  Button,
+  Image
 } from "react-native";
 import Slider from "react-native-slider";
 import { ViroARSceneNavigator } from "react-viro";
+
 var sharedProps = {
   apiKey: "7BB9691F-8936-47AC-9FB7-12FD72152B10"
 };
@@ -108,8 +110,7 @@ export default class ViroSample extends Component {
             title="Learn More"
             style={{
               backgroundColor: "blue",
-              height: "100%",
-              textAlign: "center"
+              height: "100%"
             }}
             onPress={() => {
               {
@@ -169,6 +170,8 @@ export default class ViroSample extends Component {
     );
   }
   photoBar() {
+    const images = this.props.navigation.state.params.images;
+    console.log(images);
     return (
       <View
         style={{
@@ -177,24 +180,22 @@ export default class ViroSample extends Component {
           backfaceVisibility: "hidden"
         }}
       >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "powderblue"
-          }}
-        />
-        <View
-          style={{
-            flex: 2,
-            backgroundColor: "skyblue"
-          }}
-        />
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "steelblue"
-          }}
-        />
+        {images.map((image, index) => {
+          return (
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "powderblue",
+                key: index
+              }}
+            >
+              <Image
+                style={{ width: "90%", height: "90%", margin: 2 }}
+                source={{ uri: image.uri }}
+              />
+            </View>
+          );
+        })}
       </View>
     );
   }
