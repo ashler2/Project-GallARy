@@ -11,12 +11,13 @@ import {
   ViroText,
   ViroFlexView
 } from "react-viro";
-
+import debounce from "./utils/utils";
 export default class Frame extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: [0, 0, -0.1]
+      position: [0, 0, -0.1],
+      scale: 1
     };
   }
 
@@ -24,7 +25,12 @@ export default class Frame extends Component {
     return (
       <View>
         <ViroImage
-          scale={[(1 * this.props.image.width) / this.props.image.height, 1, 1]}
+          scale={[
+            (1 * this.props.image.width * this.state.scale) /
+              this.props.image.height,
+            1 * this.state.scale,
+            1
+          ]}
           position={this.state.position}
           source={this.props.image}
           dragPlane={{
@@ -34,24 +40,28 @@ export default class Frame extends Component {
           }}
           dragType={"FixedToPlane"}
           onDrag={this.handleDrag}
+          onPinch={this.handlePinch}
         />
       </View>
     );
   }
 
-  handleMove = event => {};
+  handlePinch = (pinchState, scaleFactor, source) => {
+    console.log("pinch end");
+    debounce(this.setState({ scale: scaleFactor }), 5, false);
+  };
   handleDrag = (dragToPos, source) => {
     let transformed = [...dragToPos];
-    // transformed = transformed.map(pos => {
-    //   return Math.round(pos);
-    // });
-
-    this.setState({
-      position: [
-        Math.round(transformed[0] * 5) / 5,
-        Math.round(transformed[1] * 5) / 5,
-        -0.1
-      ]
-    });
+    debounce(
+      this.setState({
+        position: [
+          Math.round(transformed[0] * 2) / 2,
+          Math.round(transformed[1] * 2) / 2,
+          -0.1
+        ]
+      }),
+      1,
+      false
+    );
   };
 }
