@@ -86,7 +86,9 @@ export default class ViroSample extends Component {
       </View>
     );
   }
-  NavBar() {
+  NavBar = () => (this.state.toggleAllowed ? this.sizeBar() : this.photoBar());
+
+  sizeBar() {
     return (
       <View
         style={{
@@ -163,6 +165,36 @@ export default class ViroSample extends Component {
             <Text>Confirm canvas size</Text>
           </TouchableHighlight>
         </View>
+      </View>
+    );
+  }
+  photoBar() {
+    return (
+      <View
+        style={{
+          height: "10%",
+          flexDirection: "row",
+          backfaceVisibility: "hidden"
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "powderblue"
+          }}
+        />
+        <View
+          style={{
+            flex: 2,
+            backgroundColor: "skyblue"
+          }}
+        />
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "steelblue"
+          }}
+        />
       </View>
     );
   }
