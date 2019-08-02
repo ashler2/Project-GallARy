@@ -30,7 +30,6 @@ export default class HelloWorldSceneAR extends Component {
     };
 
     this._onInitialized = this._onInitialized.bind(this);
-    this._onPinch = this._onPinch.bind(this);
   }
 
   render() {
@@ -46,17 +45,25 @@ export default class HelloWorldSceneAR extends Component {
     );
   }
   componentDidUpdate = (prevProps, prevState) => {
-    if (
-      this.props.arSceneNavigator.viroAppProps.clicked !== this.state.render
-    ) {
+    const {
+      arSceneNavigator: {
+        viroAppProps: { clicked, control, sliderHeight, sliderWidth }
+      }
+    } = this.props;
+
+    if (clicked !== this.state.render) {
       this.setState({ render: true });
     }
-    if (
-      this.props.arSceneNavigator.viroAppProps.control !== this.state.status
-    ) {
+    if (control !== this.state.status) {
       this.setState({
-        status: this.props.arSceneNavigator.viroAppProps.control
+        status: control
       });
+    }
+    if (control === "width" && sliderWidth !== this.state.width) {
+      this.setState({ width: sliderWidth });
+    }
+    if (control === "height" && sliderHeight !== this.state.height) {
+      this.setState({ height: sliderHeight });
     }
   };
   statusTrue = () => {
@@ -85,33 +92,8 @@ export default class HelloWorldSceneAR extends Component {
   };
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
-      this.setState({
-        text: this.state.height.toString()
-      });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
-    }
-  }
-  _onPinch(pinchState, scaleFactor, source) {
-    if (pinchState == 2) {
-      if (this.state.status === "width") {
-        this.setState({ width: scaleFactor, text: scaleFactor.toString() });
-        return;
-      }
-      if (this.state.status === "height") {
-        this.setState({ height: scaleFactor });
-        return;
-      }
-    }
-    if (pinchState == 3) {
-      if (this.state.status === "width") {
-        this.setState({ width: scaleFactor, text: scaleFactor.toString() });
-        return;
-      }
-      if (this.state.status === "height") {
-        this.setState({ height: scaleFactor, text: scaleFactor.toString() });
-        return;
-      }
     }
   }
 }

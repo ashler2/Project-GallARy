@@ -8,7 +8,7 @@ import {
   TouchableHighlight,
   Button
 } from "react-native";
-
+import Slider from "react-native-slider";
 import { ViroARSceneNavigator } from "react-viro";
 var sharedProps = {
   apiKey: "7BB9691F-8936-47AC-9FB7-12FD72152B10"
@@ -25,7 +25,10 @@ export default class ViroSample extends Component {
       status: false,
       fullCamera: "100%",
       toggler: "height",
-      toggleAllowed: true
+      toggleAllowed: true,
+      sliderValueWidth: 5,
+      sliderValueHeight: 5,
+      sliderValue: 5
     };
   }
 
@@ -50,7 +53,9 @@ export default class ViroSample extends Component {
             viroAppProps={{
               images: this.props.navigation.state.params.images,
               clicked: this.state.status,
-              control: this.state.toggler
+              control: this.state.toggler,
+              sliderHeight: this.state.sliderValueHeight,
+              sliderWidth: this.state.sliderValueWidth
             }}
           />
         </View>
@@ -115,10 +120,29 @@ export default class ViroSample extends Component {
         </View>
         <View
           style={{
-            flex: 1,
+            flex: 2,
             backgroundColor: "skyblue"
           }}
-        />
+        >
+          <Slider
+            value={this.state.sliderValue}
+            onValueChange={value => {
+              if (this.state.toggler === "width") {
+                this.setState({ sliderValueWidth: value });
+              }
+
+              if (this.state.toggler === "height") {
+                this.setState({ sliderValueHeight: value });
+              }
+            }}
+            maximumValue={10}
+            style={{
+              margin: 10,
+              alignItems: "stretch",
+              justifyContent: "center"
+            }}
+          />
+        </View>
         <View
           style={{
             flex: 1,
@@ -130,8 +154,7 @@ export default class ViroSample extends Component {
             title="Learn More"
             style={{
               backgroundColor: "blue",
-              height: "100%",
-              textAlign: "center"
+              height: "100%"
             }}
             onPress={() => {
               this.allowToggle();
@@ -142,6 +165,20 @@ export default class ViroSample extends Component {
         </View>
       </View>
     );
+  }
+  componentDidUpdate() {
+    if (
+      this.state.toggler === "width" &&
+      this.state.sliderValue !== this.state.sliderValueWidth
+    ) {
+      this.setState({ sliderValue: this.state.sliderValueWidth });
+    }
+    if (
+      this.state.toggler === "height" &&
+      this.state.sliderValue !== this.state.sliderValueHeight
+    ) {
+      this.setState({ sliderValue: this.state.sliderValueHeight });
+    }
   }
   allowToggle() {
     this.setState({ toggleAllowed: false });
