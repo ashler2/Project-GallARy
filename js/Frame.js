@@ -17,7 +17,8 @@ export default class Frame extends Component {
     super(props);
     this.state = {
       position: [0, 0, -0.1],
-      scale: 1
+      scale: 1,
+      prevScale: 0
     };
   }
 
@@ -27,9 +28,9 @@ export default class Frame extends Component {
       <View>
         <ViroImage
           scale={[
-            (1 * this.props.image.width * this.state.scale) /
+            (0.5 * this.props.image.width * this.state.scale) /
               this.props.image.height,
-            1 * this.state.scale,
+            0.5 * this.state.scale,
             1
           ]}
           position={this.state.position}
@@ -61,7 +62,7 @@ export default class Frame extends Component {
           -0.1
         ]
       }),
-      1,
+      5,
       false
     );
   };
