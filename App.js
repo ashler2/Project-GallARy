@@ -3,6 +3,7 @@ import {
   AppRegistry,
   Text,
   View,
+  ScrollView,
   StyleSheet,
   PixelRatio,
   TouchableHighlight,
@@ -174,51 +175,67 @@ export default class ViroSample extends Component {
     const images = this.props.navigation.state.params.images;
     console.log(images);
     return (
-      <View
+      <ScrollView
+        horizontal={true}
         style={{
-          height: "10%",
-          flexDirection: "row",
-          backfaceVisibility: "hidden"
+          backgroundColor: "white",
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2
+          },
+          shadowOpacity: 0.5,
+          shadowRadius: 3.84,
+          elevation: 6
         }}
       >
         {images.map((image, index) => {
           return (
-            <View
-              key={index}
+            <TouchableHighlight
+              underlayColor="white"
               style={{
                 flex: 1,
-                backgroundColor: "powderblue"
+                width: "100%",
+                height: "100%",
+                margin: 2
+              }}
+              onPress={() => {
+                let arr = [];
+
+                arr.push(...this.state.imagePressed, image);
+                this.setState({ imagePressed: arr });
+                console.log(this.state.imagePressed);
+                images.splice(index, 1);
               }}
             >
-              <TouchableHighlight
+              <View
                 style={{
-                  width: "100%",
-                  height: "100%",
-                  margin: 2
-                }}
-                onPress={() => {
-                  let arr = [];
+                  borderRadius: 3,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
 
-                  arr.push(...this.state.imagePressed, image);
-                  this.setState({ imagePressed: arr });
-                  console.log(this.state.imagePressed);
-                  images.splice(index, 1);
+                  elevation: 5,
+                  marginHorizontal: 15
                 }}
               >
                 <Image
                   style={{
-                    width: "100%",
-                    height: "100%",
-                    margin: 2,
-                    resizeMode: "cover"
+                    width: 60,
+                    height: 60,
+                    borderRadius: 3
                   }}
                   source={{ uri: image.uri }}
                 />
-              </TouchableHighlight>
-            </View>
+              </View>
+            </TouchableHighlight>
           );
         })}
-      </View>
+      </ScrollView>
     );
   }
   componentDidUpdate() {

@@ -56,7 +56,7 @@ export default class CameraRoll extends Component {
         </View>
         <CameraRollPicker
           groupTypes="SavedPhotos"
-          maximum={3}
+          maximum={10}
           selected={this.state.selected}
           assetType="Photos"
           imagesPerRow={3}
