@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import Slider from "react-native-slider";
 import { ViroARSceneNavigator } from "react-viro";
-
+import SavePhoto from "./js/SavePhoto";
 var sharedProps = {
   apiKey: "7BB9691F-8936-47AC-9FB7-12FD72152B10"
 };
@@ -31,11 +31,13 @@ export default class ViroSample extends Component {
       sliderValueWidth: 5,
       sliderValueHeight: 5,
       sliderValue: 5,
-      imagePressed: []
+      imagePressed: [],
+      takePhoto: false
     };
   }
 
   render() {
+    console.log(this.state.takePhoto, "be");
     return (
       <View
         style={{
@@ -53,16 +55,19 @@ export default class ViroSample extends Component {
             initialScene={{
               scene: InitialARScene
             }}
+            refs={c => (this.arSceneNav = c)}
             viroAppProps={{
               images: this.state.imagePressed,
               clicked: this.state.status,
               control: this.state.toggler,
               sliderHeight: this.state.sliderValueHeight,
-              sliderWidth: this.state.sliderValueWidth
+              sliderWidth: this.state.sliderValueWidth,
+              takePhoto: this.state.takePhoto
             }}
           />
         </View>
         {this.state.status ? this.NavBar() : this.overlay()}
+        {this.state.toggleAllowed ? null : this.cameraButton()}
       </View>
     );
   }
@@ -91,6 +96,18 @@ export default class ViroSample extends Component {
   }
   NavBar = () => (this.state.toggleAllowed ? this.sizeBar() : this.photoBar());
 
+  cameraButton = () => (
+    <SavePhoto state={this.state} photo={this.photoClicked} />
+  );
+
+  photoClicked = () => {
+    const { takePhoto } = this.state;
+    if (takePhoto) {
+      return this.setState({ takePhoto: false });
+    } else {
+      return this.setState({ takePhoto: true });
+    }
+  };
   sizeBar() {
     return (
       <View
@@ -170,6 +187,7 @@ export default class ViroSample extends Component {
       </View>
     );
   }
+
   photoBar() {
     const images = this.props.navigation.state.params.images;
     console.log(images);

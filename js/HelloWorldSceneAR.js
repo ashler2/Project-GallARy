@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 
 import { StyleSheet } from "react-native";
+import _ from "lodash";
 
 import {
   ViroARScene,
@@ -27,7 +28,8 @@ export default class HelloWorldSceneAR extends Component {
       width: 5,
       status: "height",
       images: this.props.arSceneNavigator.viroAppProps.images,
-      render: this.props.arSceneNavigator.viroAppProps.clicked
+      render: this.props.arSceneNavigator.viroAppProps.clicked,
+      photo: true
     };
 
     this._onInitialized = this._onInitialized.bind(this);
@@ -45,33 +47,50 @@ export default class HelloWorldSceneAR extends Component {
       />
     );
   }
+
   componentDidUpdate = (prevProps, prevState) => {
     const {
       arSceneNavigator: {
-        viroAppProps: { clicked, control, sliderHeight, sliderWidth, images }
+        viroAppProps: {
+          clicked,
+          control,
+          sliderHeight,
+          sliderWidth,
+          images,
+          takePhoto
+        }
       }
     } = this.props;
+    const { render, status, width, height, photo } = this.state;
 
-    if (clicked !== this.state.render) {
+    if (clicked !== render) {
       this.setState({ render: true });
     }
-    if (control !== this.state.status) {
+    if (control !== status) {
       this.setState({
         status: control
       });
     }
-    if (control === "width" && sliderWidth !== this.state.width) {
+    if (control === "width" && sliderWidth !== width) {
       this.setState({ width: sliderWidth });
     }
-    if (control === "height" && sliderHeight !== this.state.height) {
+    if (control === "height" && sliderHeight !== height) {
       this.setState({ height: sliderHeight });
     }
     if (images !== this.state.images) {
       this.setState({ images: images });
     }
+    if (takePhoto === photo) {
+      // console.log(this.props.sceneNavigator.takeScreenshot);
+      const { takeScreenshot } = this.props.sceneNavigator;
+      console.log(this);
+      console.log(takeScreenshot("test", true));
+    }
   };
+
   statusTrue = () => {
     let { images } = this.state;
+
     return (
       <ViroARScene
         onTrackingUpdated={this._onInitialized}
