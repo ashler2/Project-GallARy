@@ -82,10 +82,10 @@ export default class HelloWorldSceneAR extends Component {
           height={this.state.height}
           width={this.state.width}
           length={1}
-          onPinch={this._onPinch}
+          // onPinch={this._onPinch}
           scale={[0.3, 0.3, 0.1]}
           materials={["grid"]}
-          opacity={0.5}
+          opacity={0.8}
         />
 
         {images.map((image, index) => {
