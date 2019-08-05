@@ -220,7 +220,8 @@ export default class ViroSample extends Component {
                   shadowRadius: 3.84,
 
                   elevation: 5,
-                  marginHorizontal: 15
+                  marginHorizontal: 15,
+                  marginVertical: 10
                 }}
               >
                 <Image
