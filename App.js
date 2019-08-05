@@ -104,14 +104,14 @@ export default class ViroSample extends Component {
         <View
           style={{
             flex: 1,
-            backgroundColor: "powderblue"
+            backgroundColor: "white"
           }}
         >
           <TouchableHighlight
             underlayColor="#00000000"
             title="Learn More"
             style={{
-              backgroundColor: "blue",
+              backgroundColor: "white",
               height: "100%"
             }}
             onPress={() => {
@@ -120,13 +120,22 @@ export default class ViroSample extends Component {
               }
             }}
           >
-            <Text>Toggle canvas re-sizing!</Text>
+            <Text
+              style={{
+                fontSize: 16,
+                alignItems: "center",
+                padding: 7,
+                fontWeight: "bold"
+              }}
+            >
+              Toggle canvas re-sizing!
+            </Text>
           </TouchableHighlight>
         </View>
         <View
           style={{
             flex: 2,
-            backgroundColor: "skyblue"
+            backgroundColor: "white"
           }}
         >
           <Slider
@@ -151,21 +160,30 @@ export default class ViroSample extends Component {
         <View
           style={{
             flex: 1,
-            backgroundColor: "steelblue"
+            backgroundColor: "white"
           }}
         >
           <TouchableHighlight
             underlayColor="#00000000"
             title="Learn More"
             style={{
-              backgroundColor: "blue",
+              backgroundColor: "white",
               height: "100%"
             }}
             onPress={() => {
               this.allowToggle();
             }}
           >
-            <Text>Confirm canvas size</Text>
+            <Text
+              style={{
+                fontSize: 16,
+                alignItems: "center",
+                padding: 7,
+                fontWeight: "bold"
+              }}
+            >
+              Confirm canvas size
+            </Text>
           </TouchableHighlight>
         </View>
       </View>
