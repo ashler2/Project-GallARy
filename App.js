@@ -32,11 +32,13 @@ export default class ViroSample extends Component {
       sliderValueWidth: 5,
       sliderValueHeight: 5,
       sliderValue: 5,
-      imagePressed: []
+      imagePressed: [],
+      cap: []
     };
   }
 
   render() {
+    console.log(this.state.cap);
     return (
       <View
         style={{
@@ -59,7 +61,10 @@ export default class ViroSample extends Component {
               clicked: this.state.status,
               control: this.state.toggler,
               sliderHeight: this.state.sliderValueHeight,
-              sliderWidth: this.state.sliderValueWidth
+              sliderWidth: this.state.sliderValueWidth,
+              cap: things => {
+                this.setState(things);
+              }
             }}
           />
         </View>
@@ -258,6 +263,7 @@ export default class ViroSample extends Component {
     );
   }
   componentDidUpdate() {
+    console.log(this.state.cap);
     if (
       this.state.toggler === "width" &&
       this.state.sliderValue !== this.state.sliderValueWidth

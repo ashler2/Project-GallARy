@@ -12,6 +12,7 @@ import {
   ViroFlexView
 } from "react-viro";
 import debounce from "./utils/utils";
+
 export default class Frame extends Component {
   constructor(props) {
     super(props);
@@ -53,16 +54,27 @@ export default class Frame extends Component {
   };
   handleDrag = (dragToPos, source) => {
     let transformed = [...dragToPos];
-    debounce(
-      this.setState({
-        position: [
-          Math.round(transformed[0] * 2) / 2,
-          Math.round(transformed[1] * 2) / 2,
-          -0.1
-        ]
-      }),
-      5,
-      false
-    );
+    // debounce(
+    //   this.setState({
+    //     position: [
+    //       Math.round(transformed[0] * 2) / 2,
+    //       Math.round(transformed[1] * 2) / 2,
+    //       -0.1
+    //     ]
+    //   }),
+    //   5,
+    //   false
+    // );
+
+    this.props.cap({
+      cap: [
+        {
+          position: transformed,
+          uri: this.props.image.uri,
+          scale: this.state.scale
+        }
+      ]
+    });
+    this.setState({ position: transformed });
   };
 }

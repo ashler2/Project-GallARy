@@ -27,7 +27,8 @@ export default class HelloWorldSceneAR extends Component {
       width: 5,
       status: "height",
       images: this.props.arSceneNavigator.viroAppProps.images,
-      render: this.props.arSceneNavigator.viroAppProps.clicked
+      render: this.props.arSceneNavigator.viroAppProps.clicked,
+      cap: this.props.arSceneNavigator.viroAppProps.cap
     };
 
     this._onInitialized = this._onInitialized.bind(this);
@@ -35,7 +36,7 @@ export default class HelloWorldSceneAR extends Component {
 
   render() {
     let { images } = this.state;
-
+    console.log(this.state.cap);
     return this.state.render ? (
       this.statusTrue()
     ) : (
@@ -89,7 +90,14 @@ export default class HelloWorldSceneAR extends Component {
         />
 
         {images.map((image, index) => {
-          return <Frame size={[this.state.height]} image={image} key={index} />;
+          return (
+            <Frame
+              size={[this.state.height]}
+              image={image}
+              key={index}
+              cap={this.state.cap}
+            />
+          );
         })}
       </ViroARScene>
     );
