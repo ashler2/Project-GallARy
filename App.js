@@ -33,7 +33,7 @@ export default class ViroSample extends Component {
       sliderValueHeight: 5,
       sliderValue: 5,
       imagePressed: [],
-      cap: []
+      cap: {}
     };
   }
 

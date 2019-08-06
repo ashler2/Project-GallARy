@@ -67,13 +67,13 @@ export default class Frame extends Component {
     // );
 
     this.props.cap({
-      cap: [
-        {
+      cap: {
+        [this.props.index]: {
           position: transformed,
           uri: this.props.image.uri,
           scale: this.state.scale
         }
-      ]
+      }
     });
     this.setState({ position: transformed });
   };

@@ -96,6 +96,7 @@ export default class HelloWorldSceneAR extends Component {
               image={image}
               key={index}
               cap={this.state.cap}
+              index={index}
             />
           );
         })}
