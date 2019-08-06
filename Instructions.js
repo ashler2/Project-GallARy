@@ -5,7 +5,14 @@ import {
   createSwitchNavigator
 } from "react-navigation";
 
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  TouchableHighlight,
+  Image
+} from "react-native";
 import { human } from "react-native-typography";
 
 export default class Instructions extends Component {
@@ -27,15 +34,24 @@ export default class Instructions extends Component {
           flex: 1
         }}
       >
+        <TouchableHighlight
+          style={{ marginTop: 50, marginLeft: 30 }}
+          onPress={() => {
+            navigation.navigate("cameraRollScreen");
+          }}
+        >
+          <Image source={require("./js/res/back.png")} />
+        </TouchableHighlight>
         <Text
           style={{
             height: 100,
             color: "#fff",
             fontSize: 20,
             alignItems: "center",
-            marginTop: 200,
+            marginTop: 150,
             textAlign: "center",
-            margin: 20
+            margin: 20,
+            fontFamily: "monospace"
           }}
         >
           1. Walk up to the wall where you would like to position your gallARy.
@@ -47,7 +63,8 @@ export default class Instructions extends Component {
             fontSize: 20,
             alignItems: "center",
             margin: 20,
-            textAlign: "center"
+            textAlign: "center",
+            fontFamily: "monospace"
           }}
         >
           2. Align the white line along the floor-wall intersection.
@@ -63,15 +80,26 @@ export default class Instructions extends Component {
             zIndex: 100
           }}
         />
-
-        <TouchableOpacity
-          onPress={() => {
-            this.props.nextScene();
+        <View
+          style={{
+            position: "absolute",
+            top: 180,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            justifyContent: "center",
+            alignItems: "center"
           }}
-          style={styles.button}
         >
-          <Text style={styles.buttonText}>3. Begin!</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.nextScene();
+            }}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>3. Begin!</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -80,13 +108,15 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#fff"
+    borderColor: "#fff",
+    width: 150
   },
   buttonText: {
     fontSize: 16,
     textAlign: "center",
     color: "#fff",
     padding: 7,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    fontFamily: "monospace"
   }
 });
