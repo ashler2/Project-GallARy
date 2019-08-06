@@ -12,11 +12,12 @@ import {
 } from "react-native";
 import Slider from "react-native-slider";
 import { ViroARSceneNavigator } from "react-viro";
+import Instructions from "./Instructions";
 
 var sharedProps = {
   apiKey: "7BB9691F-8936-47AC-9FB7-12FD72152B10"
 };
-
+var Empty = require("./js/empty");
 var InitialARScene = require("./js/HelloWorldSceneAR");
 
 export default class ViroSample extends Component {
@@ -33,7 +34,8 @@ export default class ViroSample extends Component {
       sliderValueHeight: 5,
       sliderValue: 5,
       imagePressed: [],
-      cap: {}
+      cap: {},
+      test: null
     };
   }
 
@@ -54,7 +56,7 @@ export default class ViroSample extends Component {
           <ViroARSceneNavigator
             {...this.state.sharedProps}
             initialScene={{
-              scene: InitialARScene
+              scene: Empty
             }}
             viroAppProps={{
               images: this.state.imagePressed,
@@ -64,7 +66,8 @@ export default class ViroSample extends Component {
               sliderWidth: this.state.sliderValueWidth,
               cap: things => {
                 this.setState(things);
-              }
+              },
+              test: this.state.test
             }}
           />
         </View>
@@ -72,28 +75,15 @@ export default class ViroSample extends Component {
       </View>
     );
   }
+  nextScene = () => {
+    this.setState({
+      status: true,
+      fullCamera: "87%",
+      test: true
+    });
+  };
   overlay() {
-    return (
-      <View style={localStyles.instructions}>
-        <Text style={localStyles.instructionsText}>
-          Align yellow line below along floor-wall intersection. Tap red button
-          when happy.
-        </Text>
-        <TouchableHighlight
-          underlayColor="#00000000"
-          style={{ backgroundColor: "blue" }}
-          onPress={() => {
-            this.setState({
-              status: true,
-              fullCamera: "87%"
-            });
-          }}
-        >
-          <Text>Begin!</Text>
-        </TouchableHighlight>
-        <Text style={localStyles.instructionsBar} />
-      </View>
-    );
+    return <Instructions nextScene={this.nextScene} />;
   }
   NavBar = () => (this.state.toggleAllowed ? this.sizeBar() : this.photoBar());
 
@@ -215,6 +205,7 @@ export default class ViroSample extends Component {
         {images.map((image, index) => {
           return (
             <TouchableHighlight
+              key={index}
               underlayColor="white"
               style={{
                 flex: 1,

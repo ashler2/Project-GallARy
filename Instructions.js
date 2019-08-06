@@ -16,11 +16,13 @@ export default class Instructions extends Component {
 
   render() {
     const { navigation } = this.props;
+    console.log(this.props);
     return (
       <View
         style={{
+          position: "absolute",
           height: "100%",
-          backgroundColor: "#254E58",
+          backgroundColor: "transparent",
           backfaceVisibility: "hidden",
           flex: 1
         }}
@@ -64,9 +66,7 @@ export default class Instructions extends Component {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("arScreen", {
-              images: this.props.navigation.state.params.images
-            });
+            this.props.nextScene();
           }}
           style={styles.button}
         >

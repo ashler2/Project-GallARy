@@ -45,7 +45,7 @@ export default class CameraRoll extends Component {
           </Text>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("instructionsScreen", {
+              navigation.navigate("arScreen", {
                 images: this.state.selected
               });
             }}
