@@ -27,10 +27,7 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <View style={{ height: "80%", justifyContent: "center" }}>
-          <Image
-            source={require("./js/res/gallARy2.png")}
-            style={styles.logo}
-          />
+          <Image source={require("./js/res/logo.png")} style={styles.logo} />
         </View>
         <View style={{ height: "20%" }}>
           <TouchableOpacity
@@ -52,7 +49,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 24,
-    backgroundColor: "#254E58",
+    backgroundColor: "#eb9080",
     height: "100%"
   },
   logo: {
@@ -60,12 +57,12 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
 
-  button: { borderRadius: 10, borderWidth: 1, borderColor: "#fff" },
+  button: { borderRadius: 10, borderWidth: 3, borderColor: "#fff" },
   buttonText: {
-    fontSize: 25,
+    fontSize: 20,
     alignItems: "center",
     color: "#fff",
     padding: 10,
-    fontWeight: "bold"
+    fontFamily: "monospace"
   }
 });

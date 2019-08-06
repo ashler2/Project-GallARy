@@ -4,7 +4,9 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableHighlight,
+  Image
 } from "react-native";
 import {
   createStackNavigator,
@@ -39,9 +41,16 @@ export default class CameraRoll extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.content}>
+          <TouchableHighlight
+            onPress={() => {
+              navigation.navigate("homeScreen");
+            }}
+          >
+            <Image source={require("./js/res/back.png")} />
+          </TouchableHighlight>
           <Text style={styles.text}>
-            <Text style={styles.bold}> {this.state.num} </Text> images have been
-            selected
+            <Text style={styles.bold}> {this.state.num} </Text>
+            photos selected
           </Text>
           <TouchableOpacity
             onPress={() => {
@@ -71,12 +80,12 @@ export default class CameraRoll extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#254E58"
+    backgroundColor: "#eb9080"
   },
   content: {
     height: 50,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
     flexWrap: "wrap"
   },
@@ -92,11 +101,12 @@ const styles = StyleSheet.create({
     borderColor: "#fff"
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 14,
     alignItems: "center",
     color: "#fff",
-    padding: 7,
-    fontWeight: "bold"
+    padding: 5,
+    fontWeight: "bold",
+    fontFamily: "monospace"
   },
 
   bold: {
