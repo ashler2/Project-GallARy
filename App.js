@@ -34,7 +34,8 @@ export default class ViroSample extends Component {
       sliderValueHeight: 5,
       sliderValue: 5,
       imagePressed: [],
-      test: null
+      test: null,
+      picture: false
     };
   }
 
@@ -53,6 +54,7 @@ export default class ViroSample extends Component {
         >
           <ViroARSceneNavigator
             {...this.state.sharedProps}
+            ref={ARSceneNav => (this.ARSceneNav = ARSceneNav)}
             initialScene={{
               scene: Empty
             }}
@@ -65,11 +67,36 @@ export default class ViroSample extends Component {
               test: this.state.test
             }}
           />
+          <TouchableHighlight
+            style={{
+              position: "absolute",
+              bottom: 20,
+              backgroundColor: "red",
+              height: 100
+            }}
+            onPress={this.testButton}
+          >
+            <Text>test</Text>
+          </TouchableHighlight>
         </View>
         {this.state.status ? this.NavBar() : this.overlay()}
       </View>
     );
   }
+  testButton = () => {
+    this.setState({ picture: !this.state.picture });
+    const test = async () => {
+      return await this.ARSceneNav.sceneNavigator.takeScreenshot(
+        "etesatg",
+        true
+      );
+    };
+    console.log(test());
+  };
+
+  // this.ARSceneNav.sceneNavigator.takeScreenshot("picture", true);
+  // alert("TOUCHED!");
+
   nextScene = () => {
     this.setState({
       status: true,
