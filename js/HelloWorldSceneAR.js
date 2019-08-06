@@ -27,7 +27,9 @@ export default class HelloWorldSceneAR extends Component {
       width: 5,
       status: "height",
       images: this.props.arSceneNavigator.viroAppProps.images,
-      render: this.props.arSceneNavigator.viroAppProps.clicked
+      render: this.props.arSceneNavigator.viroAppProps.clicked,
+      cap: this.props.arSceneNavigator.viroAppProps.cap,
+      visible: true
     };
 
     this._onInitialized = this._onInitialized.bind(this);
@@ -35,7 +37,6 @@ export default class HelloWorldSceneAR extends Component {
 
   render() {
     let { images } = this.state;
-
     return this.state.render ? (
       this.statusTrue()
     ) : (
@@ -86,13 +87,32 @@ export default class HelloWorldSceneAR extends Component {
           scale={[0.3, 0.3, 0.1]}
           materials={["grid"]}
           opacity={0.8}
+          visible={this.state.visible}
+        />
+        <ViroButton
+          source={require("./res/close.png")}
+          position={[this.state.width / 10, this.state.height / 10, -0.1]}
+          height={0.1}
+          width={0.1}
+          onClick={this.handleClose}
         />
 
         {images.map((image, index) => {
-          return <Frame size={[this.state.height]} image={image} key={index} />;
+          return (
+            <Frame
+              size={[this.state.height]}
+              image={image}
+              key={index}
+              cap={this.state.cap}
+              index={index}
+            />
+          );
         })}
       </ViroARScene>
     );
+  };
+  handleClose = () => {
+    this.setState({ visible: false });
   };
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
