@@ -33,7 +33,6 @@ export default class CameraRoll extends Component {
       num: num,
       selected: images
     });
-    console.log(this.state.selected);
   };
 
   render() {

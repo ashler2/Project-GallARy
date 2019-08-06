@@ -40,7 +40,6 @@ export default class ViroSample extends Component {
   }
 
   render() {
-    console.log(this.state.cap);
     return (
       <View
         style={{
@@ -186,7 +185,6 @@ export default class ViroSample extends Component {
   }
   photoBar() {
     const images = this.props.navigation.state.params.images;
-    console.log(images);
     return (
       <ScrollView
         horizontal={true}
@@ -218,7 +216,6 @@ export default class ViroSample extends Component {
 
                 arr.push(...this.state.imagePressed, image);
                 this.setState({ imagePressed: arr });
-                console.log(this.state.imagePressed);
                 images.splice(index, 1);
               }}
             >
@@ -254,7 +251,6 @@ export default class ViroSample extends Component {
     );
   }
   componentDidUpdate() {
-    console.log(this.state.cap);
     if (
       this.state.toggler === "width" &&
       this.state.sliderValue !== this.state.sliderValueWidth

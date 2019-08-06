@@ -36,7 +36,6 @@ export default class HelloWorldSceneAR extends Component {
 
   render() {
     let { images } = this.state;
-    console.log(this.state.cap);
     return this.state.render ? (
       this.statusTrue()
     ) : (

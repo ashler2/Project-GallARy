@@ -25,7 +25,6 @@ export default class NavigationMaster extends Component {
 
   render() {
     const { navigation } = this.props;
-    console.log(navigation);
     return <PageNavigator />;
   }
 }
