@@ -55,7 +55,7 @@ export default class ViroSample extends Component {
           <ViroARSceneNavigator
             {...this.state.sharedProps}
             initialScene={{
-              scene: Empty
+              scene: InitialARScene
             }}
             viroAppProps={{
               images: this.state.imagePressed,
