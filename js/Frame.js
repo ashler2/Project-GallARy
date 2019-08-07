@@ -96,7 +96,11 @@ export default class Frame extends Component {
       index: this.props.index,
       position: transformed,
       uri: this.props.image.uri,
-      scale: this.state.scale
+
+      width:
+        (0.5 * this.props.image.width * this.state.scale) /
+        this.props.image.height,
+      height: 0.5 * this.state.scale
     });
     this.setState({ position: transformed });
   };
