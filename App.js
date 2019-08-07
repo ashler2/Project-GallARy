@@ -36,14 +36,13 @@ export default class ViroSample extends Component {
       sliderValueHeight: 5,
       sliderValue: 5,
       imagePressed: [],
-      cap: {},
+      cap: [],
       test: null
     };
   }
 
   render() {
-    const { navigation } = this.props;
-
+    console.log(this.state, "<<< app state");
     return (
       <View
         style={{
@@ -83,7 +82,12 @@ export default class ViroSample extends Component {
               sliderHeight: this.state.sliderValueHeight,
               sliderWidth: this.state.sliderValueWidth,
               cap: things => {
-                this.setState(things);
+                let { index } = things;
+                let array = [...this.state.cap];
+                array[index] = things;
+                this.setState({
+                  cap: array
+                });
               },
               test: this.state.test
             }}
@@ -238,6 +242,7 @@ export default class ViroSample extends Component {
   }
   photoBar() {
     const images = this.props.navigation.state.params.images;
+    const { navigation } = this.props;
     return (
       <ScrollView
         horizontal={true}
@@ -253,6 +258,15 @@ export default class ViroSample extends Component {
           elevation: 6
         }}
       >
+        <TouchableHighlight
+          onPress={() => {
+            navigation.navigate("CanvasPreview", {
+              cap: this.state.cap
+            });
+          }}
+        >
+          <Text> preview</Text>
+        </TouchableHighlight>
         {images.map((image, index) => {
           return (
             <TouchableHighlight
