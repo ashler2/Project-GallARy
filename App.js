@@ -8,7 +8,8 @@ import {
   PixelRatio,
   TouchableHighlight,
   Button,
-  Image
+  Image,
+  TouchableOpacity
 } from "react-native";
 import Slider from "react-native-slider";
 import { ViroARSceneNavigator } from "react-viro";
@@ -29,6 +30,7 @@ export default class ViroSample extends Component {
       status: false,
       fullCamera: "100%",
       toggler: "height",
+      oppToggler: "Width",
       toggleAllowed: true,
       sliderValueWidth: 5,
       sliderValueHeight: 5,
@@ -52,6 +54,14 @@ export default class ViroSample extends Component {
             height: this.state.fullCamera
           }}
         >
+          {/* <TouchableHighlight
+          style={{ marginTop: 50, marginLeft: 30 }}
+          onPress={() => {
+            navigation.navigate(this.props.back());
+          }}
+        >
+          <Image source={require("./js/res/back.png")} />
+        </TouchableHighlight> */}
           <ViroARSceneNavigator
             {...this.state.sharedProps}
             initialScene={{
@@ -81,6 +91,8 @@ export default class ViroSample extends Component {
       test: true
     });
   };
+  back = () => {};
+
   overlay() {
     return <Instructions nextScene={this.nextScene} />;
   }
@@ -92,55 +104,81 @@ export default class ViroSample extends Component {
         style={{
           height: "10%",
           flexDirection: "row",
-          backfaceVisibility: "hidden"
+          backfaceVisibility: "hidden",
+          backgroundColor: "#eb9080",
+          justifyContent: "space-around"
         }}
       >
         <View
           style={{
             flex: 1,
-            backgroundColor: "white"
+            backgroundColor: "#eb9080",
+            justifyContent: "center",
+            alignItems: "center"
           }}
         >
-          <TouchableHighlight
+          <TouchableOpacity
             underlayColor="#00000000"
             title="Learn More"
             style={{
-              backgroundColor: "white",
-              height: "100%"
+              borderRadius: 10,
+              borderWidth: 2,
+              borderColor: "#fff",
+              width: "80%"
             }}
             onPress={() => {
               {
                 this.state.toggleAllowed ? this._onButtonTap() : null;
+                if (this.state.toggler === "width") {
+                  this.setState({
+                    oppToggler: "Width"
+                  });
+                }
+
+                if (this.state.toggler === "height") {
+                  this.setState({
+                    oppToggler: "Height"
+                  });
+                }
               }
             }}
           >
             <Text
               style={{
                 fontSize: 16,
+                color: "#fff",
                 alignItems: "center",
-                padding: 7,
-                fontWeight: "bold"
+                padding: 2,
+                fontWeight: "bold",
+                fontFamily: "monospace",
+                textAlign: "center"
               }}
             >
-              Toggle canvas re-sizing!
+              Change Canvas {this.state.oppToggler}
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
         <View
           style={{
             flex: 2,
-            backgroundColor: "white"
+            backgroundColor: "#eb9080"
           }}
         >
           <Slider
+            minimumTrackTintColor="#fff"
+            thumbTintColor="#fff"
             value={this.state.sliderValue}
             onValueChange={value => {
               if (this.state.toggler === "width") {
-                this.setState({ sliderValueWidth: value });
+                this.setState({
+                  sliderValueWidth: value
+                });
               }
 
               if (this.state.toggler === "height") {
-                this.setState({ sliderValueHeight: value });
+                this.setState({
+                  sliderValueHeight: value
+                });
               }
             }}
             maximumValue={10}
@@ -154,15 +192,19 @@ export default class ViroSample extends Component {
         <View
           style={{
             flex: 1,
-            backgroundColor: "white"
+            backgroundColor: "#eb9080",
+            justifyContent: "center",
+            alignItems: "center"
           }}
         >
-          <TouchableHighlight
+          <TouchableOpacity
             underlayColor="#00000000"
-            title="Learn More"
+            title="Confirm Canvas"
             style={{
-              backgroundColor: "white",
-              height: "100%"
+              borderRadius: 10,
+              borderWidth: 2,
+              borderColor: "#fff",
+              width: "80%"
             }}
             onPress={() => {
               this.allowToggle();
@@ -171,14 +213,17 @@ export default class ViroSample extends Component {
             <Text
               style={{
                 fontSize: 16,
+                color: "#fff",
                 alignItems: "center",
-                padding: 7,
-                fontWeight: "bold"
+                padding: 2,
+                fontWeight: "bold",
+                fontFamily: "monospace",
+                textAlign: "center"
               }}
             >
-              Confirm canvas size
+              Confirm Canvas Size
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -189,7 +234,7 @@ export default class ViroSample extends Component {
       <ScrollView
         horizontal={true}
         style={{
-          backgroundColor: "white",
+          backgroundColor: "#eb9080",
           shadowColor: "#000",
           shadowOffset: {
             width: 0,
