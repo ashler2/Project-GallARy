@@ -10,12 +10,14 @@ import Home from "./Home";
 import CameraRoll from "./CameraRoll";
 import Instructions from "./Instructions";
 import CanvasPreview from "./CanvasPreview";
+import Profile from "./Profile";
 const switcher = createSwitchNavigator({
   homeScreen: Home,
   cameraRollScreen: CameraRoll,
   instructionsScreen: Instructions,
   arScreen: App,
-  CanvasPreview: CanvasPreview
+  CanvasPreview: CanvasPreview,
+  ProfileScreen: Profile
 });
 const PageNavigator = createAppContainer(switcher);
 

@@ -15,6 +15,7 @@ import {
   Thumbnail
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
+import CanvasPreview from "./CanvasPreview";
 
 class Profile extends Component {
   render() {
@@ -64,6 +65,7 @@ class Profile extends Component {
                     "https://d339b5nop2tkmp.cloudfront.net/uploads/pictures/456/Viola_201044.jpg"
                 }}
               />
+
               <Text
                 style={{
                   fontSize: 24,
@@ -124,13 +126,18 @@ class Profile extends Component {
                   </Left>
                 </CardItem>
                 <CardItem cardBody>
-                  <Image
+                  {/* <Image
                     source={{
                       uri:
                         "https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg"
                     }}
                     style={{ height: 200, width: null, flex: 1 }}
-                  />
+                  /> */}
+                  <View style={{ height: 200, width: null, flex: 1 }}>
+                    <CanvasPreview
+                      cap={this.props.navigation.state.params.cap}
+                    />
+                  </View>
                 </CardItem>
                 <CardItem>
                   <Left>

@@ -260,7 +260,7 @@ export default class ViroSample extends Component {
       >
         <TouchableHighlight
           onPress={() => {
-            navigation.navigate("CanvasPreview", {
+            navigation.navigate("ProfileScreen", {
               cap: this.state.cap
             });
           }}

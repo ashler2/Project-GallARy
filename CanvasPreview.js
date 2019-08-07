@@ -25,7 +25,7 @@ class CanvasPreview extends Component {
           justifyContent: "center"
         }}
       >
-        {this.props.navigation.state.params.cap.map((image, index) => {
+        {this.props.cap.map((image, index) => {
           return (
             <Image
               source={{ uri: image.uri }}
