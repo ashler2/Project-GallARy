@@ -65,6 +65,32 @@ export default class Frame extends Component {
     //   5,
     //   false
     // );
+    const { height, width } = this.props.heightWidthMain;
+
+    const finHeight = height / 10;
+    const botFinHeight = finHeight * -1;
+    const finWidth = width / 10;
+    const botFinWidth = finWidth * -1;
+    const pixleH = this.props.image.height / 3779.52;
+    const pixleW = this.props.image.width / 3779.52;
+
+    console.log(this.state.scale);
+
+    if (transformed[1] + pixleH > finHeight) {
+      transformed[1] = finHeight;
+    }
+    if (transformed[1] + pixleH * -1 < botFinHeight) {
+      transformed[1] = botFinHeight;
+    }
+    if (transformed[0] > finWidth + pixleW / this.props.image.height) {
+      transformed[0] = finWidth;
+    }
+    if (
+      transformed[0] <
+      botFinWidth + (pixleW / this.props.image.height) * -1
+    ) {
+      transformed[0] = botFinWidth;
+    }
 
     this.props.cap({
       index: this.props.index,
