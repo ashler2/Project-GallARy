@@ -100,6 +100,10 @@ export default class HelloWorldSceneAR extends Component {
         {images.map((image, index) => {
           return (
             <Frame
+              heightWidthMain={{
+                height: this.state.height,
+                width: this.state.width
+              }}
               size={[this.state.height]}
               image={image}
               key={index}
