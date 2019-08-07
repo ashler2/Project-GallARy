@@ -83,13 +83,13 @@ export default class Frame extends Component {
       transformed[1] = botFinHeight;
     }
     if (transformed[0] > finWidth + pixleW / this.props.image.height) {
-      transformed[0] = finWidth;
+      transformed[0] = finWidth + pixleW / this.props.image.height;
     }
     if (
       transformed[0] <
       botFinWidth + (pixleW / this.props.image.height) * -1
     ) {
-      transformed[0] = botFinWidth;
+      transformed[0] = botFinWidth + (pixleW / this.props.image.height) * -1;
     }
 
     this.props.cap({
