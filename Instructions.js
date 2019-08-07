@@ -23,7 +23,6 @@ export default class Instructions extends Component {
 
   render() {
     const { navigation } = this.props;
-    console.log(this.props);
     return (
       <View
         style={{
@@ -37,7 +36,7 @@ export default class Instructions extends Component {
         <TouchableHighlight
           style={{ marginTop: 50, marginLeft: 30 }}
           onPress={() => {
-            navigation.navigate("cameraRollScreen");
+            navigation.navigate(this.props.back());
           }}
         >
           <Image source={require("./js/res/back.png")} />
