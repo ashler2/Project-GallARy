@@ -42,6 +42,8 @@ export default class ViroSample extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
+
     return (
       <View
         style={{
@@ -49,19 +51,26 @@ export default class ViroSample extends Component {
           backfaceVisibility: "hidden"
         }}
       >
+        <TouchableHighlight
+          style={{
+            marginTop: 20,
+            marginLeft: 20,
+            position: "absolute",
+            backgroundColor: "transparent",
+            backfaceVisibility: "hidden",
+            zIndex: 100
+          }}
+          onPress={() => {
+            navigation.navigate("cameraRollScreen");
+          }}
+        >
+          <Image source={require("./js/res/back.png")} />
+        </TouchableHighlight>
         <View
           style={{
             height: this.state.fullCamera
           }}
         >
-          {/* <TouchableHighlight
-          style={{ marginTop: 50, marginLeft: 30 }}
-          onPress={() => {
-            navigation.navigate(this.props.back());
-          }}
-        >
-          <Image source={require("./js/res/back.png")} />
-        </TouchableHighlight> */}
           <ViroARSceneNavigator
             {...this.state.sharedProps}
             initialScene={{
@@ -91,7 +100,6 @@ export default class ViroSample extends Component {
       test: true
     });
   };
-  back = () => {};
 
   overlay() {
     return <Instructions nextScene={this.nextScene} />;

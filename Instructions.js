@@ -22,6 +22,7 @@ export default class Instructions extends Component {
   }
 
   render() {
+    console.log(this.props, "<<<<<navigationIN");
     const { navigation } = this.props;
     return (
       <View
@@ -33,14 +34,6 @@ export default class Instructions extends Component {
           flex: 1
         }}
       >
-        <TouchableHighlight
-          style={{ marginTop: 50, marginLeft: 30 }}
-          onPress={() => {
-            navigation.navigate(this.props.back());
-          }}
-        >
-          <Image source={require("./js/res/back.png")} />
-        </TouchableHighlight>
         <Text
           style={{
             height: 100,
