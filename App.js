@@ -14,6 +14,7 @@ import {
 import Slider from "react-native-slider";
 import { ViroARSceneNavigator } from "react-viro";
 import Instructions from "./Instructions";
+import StoreGlobal from "./GLOBALSTATE";
 
 var sharedProps = {
   apiKey: "7BB9691F-8936-47AC-9FB7-12FD72152B10"
@@ -261,12 +262,13 @@ export default class ViroSample extends Component {
       >
         <TouchableHighlight
           onPress={() => {
-            navigation.navigate("ProfileScreen", {
-              cap: this.state.cap
-            });
+            let prev = StoreGlobal({ type: "get", key: "saved" });
+            prev.cap = this.state.cap;
+            StoreGlobal({ type: "set", key: "saved", value: prev });
+            navigation.navigate("ProfileScreen");
           }}
         >
-          <Text> preview</Text>
+          <Text> save</Text>
         </TouchableHighlight>
         {images.map((image, index) => {
           return (

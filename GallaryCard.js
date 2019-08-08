@@ -19,11 +19,12 @@ import CanvasPreview from "./CanvasPreview";
 export default class GallaryCard extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { cap: this.props.cap };
   }
 
   render() {
     const { navigation } = this.props;
+    console.log(this.state, "card state");
     return (
       <View>
         <Card>
@@ -51,9 +52,7 @@ export default class GallaryCard extends Component {
                     style={{ height: 200, width: null, flex: 1 }}
                   /> */}
             <View style={{ height: 200, width: null, flex: 1 }}>
-              {this.props.cap !== undefined ? (
-                <CanvasPreview cap={this.props.cap} />
-              ) : null}
+              {!this.state.cap ? null : <CanvasPreview cap={this.state.cap} />}
             </View>
           </CardItem>
           <CardItem>
