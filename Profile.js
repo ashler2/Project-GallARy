@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { Image, View, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  Image,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView
+} from "react-native";
 import {
   Container,
   Header,
@@ -16,6 +22,7 @@ import {
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import CanvasPreview from "./CanvasPreview";
+import GallaryCard from "./GallaryCard";
 
 class Profile extends Component {
   render() {
@@ -108,56 +115,14 @@ class Profile extends Component {
             </View>
           </Row>
           <Row size={2.9} style={{ backgroundColor: "#fff" }}>
-            <Content>
-              <Card>
-                <CardItem>
-                  <Left>
-                    <Thumbnail
-                      small
-                      source={{
-                        uri:
-                          "https://d339b5nop2tkmp.cloudfront.net/uploads/pictures/456/Viola_201044.jpg"
-                      }}
-                    />
-                    <Body>
-                      <Text>My Best Pal</Text>
-                      <Text note>By Rex</Text>
-                    </Body>
-                  </Left>
-                </CardItem>
-                <CardItem cardBody>
-                  {/* <Image
-                    source={{
-                      uri:
-                        "https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg"
-                    }}
-                    style={{ height: 200, width: null, flex: 1 }}
-                  /> */}
-                  <View style={{ height: 200, width: null, flex: 1 }}>
-                    <CanvasPreview
-                      cap={this.props.navigation.state.params.cap}
-                    />
-                  </View>
-                </CardItem>
-                <CardItem>
-                  <Left>
-                    <Button transparent>
-                      <Image source={require("./js/res/heart.png")} />
-                      <Text style={{ color: "#605F5E" }}>12 Likes</Text>
-                    </Button>
-                  </Left>
-                  <Body>
-                    <Button transparent>
-                      <Image source={require("./js/res/comments.png")} />
-                      <Text style={{ color: "#605F5E" }}>4 Comments</Text>
-                    </Button>
-                  </Body>
-                  <Right>
-                    <Text>11h ago</Text>
-                  </Right>
-                </CardItem>
-              </Card>
-            </Content>
+            <ScrollView>
+              <Content>
+                <GallaryCard
+                  cap={this.props.navigation.state.params.cap}
+                  navigation={navigation}
+                />
+              </Content>
+            </ScrollView>
           </Row>
         </Grid>
       </Container>

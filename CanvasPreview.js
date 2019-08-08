@@ -32,8 +32,8 @@ class CanvasPreview extends Component {
               style={{
                 // flex: 1,
 
-                width: 100,
-                height: 100,
+                width: image.width * 100,
+                height: image.height * 100,
                 right: image.position[0] * 50,
                 top: image.position[1] * 50
               }}
