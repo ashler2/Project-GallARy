@@ -42,7 +42,8 @@ export default class ViroSample extends Component {
   }
 
   render() {
-    console.log(this.state, "<<< app state");
+    const { navigation } = this.props;
+
     return (
       <View
         style={{

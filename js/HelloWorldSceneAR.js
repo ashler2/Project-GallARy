@@ -116,7 +116,7 @@ export default class HelloWorldSceneAR extends Component {
     );
   };
   handleClose = () => {
-    this.setState({ visible: false });
+    this.setState({ visible: !this.state.visible });
   };
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
