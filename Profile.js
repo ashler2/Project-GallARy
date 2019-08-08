@@ -20,13 +20,17 @@ import {
   Text,
   Thumbnail
 } from "native-base";
+import storeGlobal from "./GLOBALSTATE";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import CanvasPreview from "./CanvasPreview";
 import GallaryCard from "./GallaryCard";
 
 class Profile extends Component {
+  state = { store: storeGlobal({ type: "get", key: "saved" }) };
   render() {
     const { navigation } = this.props;
+    // console.log(storeGlobal({ type: "get", key: "saved" }), "global state");
+    // console.log(this.state);
     return (
       <Container
         style={{
@@ -121,10 +125,14 @@ class Profile extends Component {
           <Row size={2.9} style={{ backgroundColor: "#fff" }}>
             <ScrollView>
               <Content>
-                {/* <GallaryCard
-                  cap={this.props.navigation.state.params.cap}
-                  navigation={navigation}
-                /> */}
+                {!this.state.store.cap ? (
+                  <Text>No GallARys created!</Text>
+                ) : (
+                  <GallaryCard
+                    cap={this.state.store.cap}
+                    navigation={navigation}
+                  />
+                )}
               </Content>
             </ScrollView>
           </Row>
@@ -132,6 +140,14 @@ class Profile extends Component {
       </Container>
     );
   }
+  componentDidMount = () => {
+    this.setState({ store: storeGlobal({ type: "get", key: "saved" }) });
+  };
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.store.cap !== this.state.store.cap) {
+      this.forceUpdate();
+    }
+  };
 }
 
 const styles = StyleSheet.create({
