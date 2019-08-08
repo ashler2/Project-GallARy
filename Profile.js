@@ -28,7 +28,11 @@ class Profile extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <Container>
+      <Container
+        style={{
+          marginTop: 23
+        }}
+      >
         <Header style={{ backgroundColor: "#eb9080" }}>
           {/* <Left>
             <Button transparent>
@@ -117,10 +121,10 @@ class Profile extends Component {
           <Row size={2.9} style={{ backgroundColor: "#fff" }}>
             <ScrollView>
               <Content>
-                <GallaryCard
+                {/* <GallaryCard
                   cap={this.props.navigation.state.params.cap}
                   navigation={navigation}
-                />
+                /> */}
               </Content>
             </ScrollView>
           </Row>
@@ -137,7 +141,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 24,
     backgroundColor: "#eb9080",
-    height: "100%"
+    height: "100%",
+
+    top: 100
   },
   logo: {
     flex: 0.6,

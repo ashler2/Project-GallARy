@@ -29,7 +29,7 @@ export default class Login extends Component {
     const { password } = this.state;
     const { navigation } = this.props;
     return (
-      <Container style={{ backgroundColor: "#eb9080" }}>
+      <Container style={{ backgroundColor: "#eb9080", marginTop: 23 }}>
         <TouchableHighlight
           onPress={() => {
             navigation.navigate("homeScreen");
