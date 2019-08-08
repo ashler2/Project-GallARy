@@ -264,7 +264,7 @@ export default class ViroSample extends Component {
         <TouchableHighlight
           onPress={() => {
             let prev = StoreGlobal({ type: "get", key: "saved" });
-            prev.cap = this.state.cap;
+            prev.push(this.state.cap);
             StoreGlobal({ type: "set", key: "saved", value: prev });
             navigation.navigate("ProfileScreen");
           }}

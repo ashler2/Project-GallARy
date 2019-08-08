@@ -30,7 +30,7 @@ class Profile extends Component {
   render() {
     const { navigation } = this.props;
     // console.log(storeGlobal({ type: "get", key: "saved" }), "global state");
-    // console.log(this.state);
+    console.log(this.state);
     return (
       <Container
         style={{
@@ -125,14 +125,9 @@ class Profile extends Component {
           <Row size={2.9} style={{ backgroundColor: "#fff" }}>
             <ScrollView>
               <Content>
-                {!this.state.store.cap ? (
-                  <Text>No GallARys created!</Text>
-                ) : (
-                  <GallaryCard
-                    cap={this.state.store.cap}
-                    navigation={navigation}
-                  />
-                )}
+                {this.state.store.map(image => {
+                  return <GallaryCard cap={image} navigation={navigation} />;
+                })}
               </Content>
             </ScrollView>
           </Row>
