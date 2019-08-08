@@ -49,7 +49,6 @@ export default class Frame extends Component {
   }
 
   handlePinch = (pinchState, scaleFactor, source) => {
-    console.log("pinch end");
     debounce(this.setState({ scale: scaleFactor }), 5, false);
   };
   handleDrag = (dragToPos, source) => {
@@ -73,8 +72,6 @@ export default class Frame extends Component {
     const botFinWidth = finWidth * -1;
     const pixleH = this.props.image.height / 3779.52;
     const pixleW = this.props.image.width / 3779.52;
-
-    console.log(this.state.scale);
 
     if (transformed[1] + pixleH > finHeight) {
       transformed[1] = finHeight;
