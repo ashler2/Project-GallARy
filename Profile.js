@@ -147,7 +147,12 @@ class Profile extends Component {
                     </Button>
                   </Left>
                   <Body>
-                    <Button transparent>
+                    <Button
+                      transparent
+                      onPress={() => {
+                        navigation.navigate("CommentsPage");
+                      }}
+                    >
                       <Image source={require("./js/res/comments.png")} />
                       <Text style={{ color: "#605F5E" }}>4 Comments</Text>
                     </Button>
