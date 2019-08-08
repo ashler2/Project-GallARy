@@ -29,6 +29,7 @@ export default class HelloWorldSceneAR extends Component {
       images: this.props.arSceneNavigator.viroAppProps.images,
       render: this.props.arSceneNavigator.viroAppProps.clicked,
       cap: this.props.arSceneNavigator.viroAppProps.cap,
+      saved: this.props.arSceneNavigator.viroAppProps.saved,
       visible: true
     };
 
@@ -36,6 +37,30 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   render() {
+    if (this.state.saved) {
+      return (
+        <ViroARScene
+          onTrackingUpdated={this._onInitialized}
+          displayPointCloud={true}
+        >
+          {this.state.saved.map((image, index) => {
+            return (
+              <Frame
+                heightWidthMain={{
+                  height: this.state.height,
+                  width: this.state.width
+                }}
+                size={[this.state.height]}
+                image={image}
+                key={index}
+                cap={this.state.cap}
+                index={index}
+              />
+            );
+          })}
+        </ViroARScene>
+      );
+    }
     let { images } = this.state;
     return this.state.render ? (
       this.statusTrue()

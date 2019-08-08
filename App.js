@@ -82,6 +82,7 @@ export default class ViroSample extends Component {
               control: this.state.toggler,
               sliderHeight: this.state.sliderValueHeight,
               sliderWidth: this.state.sliderValueWidth,
+              saved: this.props.navigation.state.params.cap,
               cap: things => {
                 let { index } = things;
                 let array = [...this.state.cap];
