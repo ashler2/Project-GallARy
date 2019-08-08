@@ -79,7 +79,8 @@ export default class CameraRoll extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eb9080"
+    backgroundColor: "#eb9080",
+    marginTop: 23
   },
   content: {
     height: 50,

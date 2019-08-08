@@ -30,8 +30,6 @@ class CanvasPreview extends Component {
             <Image
               source={{ uri: image.uri }}
               style={{
-                // flex: 1,
-
                 width: image.width * 100,
                 height: image.height * 100,
                 right: image.position[0] * 50,

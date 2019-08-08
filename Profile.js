@@ -32,7 +32,11 @@ class Profile extends Component {
     // console.log(storeGlobal({ type: "get", key: "saved" }), "global state");
     // console.log(this.state);
     return (
-      <Container>
+      <Container
+        style={{
+          marginTop: 23
+        }}
+      >
         <Header style={{ backgroundColor: "#eb9080" }}>
           {/* <Left>
             <Button transparent>
@@ -153,7 +157,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 24,
     backgroundColor: "#eb9080",
-    height: "100%"
+    height: "100%",
+
+    top: 100
   },
   logo: {
     flex: 0.6,

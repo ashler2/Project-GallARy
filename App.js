@@ -49,7 +49,8 @@ export default class ViroSample extends Component {
       <View
         style={{
           height: "100%",
-          backfaceVisibility: "hidden"
+          backfaceVisibility: "hidden",
+          marginTop: 23
         }}
       >
         <TouchableHighlight

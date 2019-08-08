@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 24,
     backgroundColor: "#eb9080",
-    height: "100%"
+    height: "100%",
+    marginTop: 23
   },
   logo: {
     flex: 0.7,
