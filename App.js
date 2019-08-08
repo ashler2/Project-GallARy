@@ -245,97 +245,122 @@ export default class ViroSample extends Component {
   }
   photoBar() {
     const images = this.props.navigation.state.params.images;
+
     const { navigation } = this.props;
-    return (
-      <ScrollView
-        horizontal={true}
-        style={{
-          backgroundColor: "#fff",
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2
-          },
-          shadowOpacity: 0.5,
-          shadowRadius: 3.84,
-          elevation: 6
-        }}
-      >
-        <TouchableHighlight
-          onPress={() => {
-            let prev = StoreGlobal({ type: "get", key: "saved" });
-            prev.push(this.state.cap);
-            StoreGlobal({ type: "set", key: "saved", value: prev });
-            navigation.navigate("ProfileScreen");
-          }}
+    if (images.length >= 1) {
+      return (
+        <ScrollView
+          horizontal={true}
           style={{
-            borderRadius: 10,
-            borderWidth: 3,
-            borderColor: "#605F5E",
-            margin: 30
+            backgroundColor: "#fff",
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2
+            },
+            shadowOpacity: 0.5,
+            shadowRadius: 3.84,
+            elevation: 6
           }}
         >
-          <Text
-            style={{
-              fontSize: 20,
-              alignItems: "center",
-              padding: 5,
-              fontWeight: "bold",
-              fontFamily: "monospace"
-            }}
-          >
-            Save gallARy
-          </Text>
-        </TouchableHighlight>
-        {images.map((image, index) => {
-          return (
-            <TouchableHighlight
-              key={index}
-              underlayColor="white"
-              style={{
-                flex: 1,
-                width: "100%",
-                height: "100%",
-                margin: 2
-              }}
-              onPress={() => {
-                let arr = [];
-
-                arr.push(...this.state.imagePressed, image);
-                this.setState({ imagePressed: arr });
-                images.splice(index, 1);
-              }}
-            >
-              <View
+          {images.map((image, index) => {
+            return (
+              <TouchableHighlight
+                key={index}
+                underlayColor="white"
                 style={{
-                  borderRadius: 3,
-                  shadowColor: "#000",
-                  shadowOffset: {
-                    width: 0,
-                    height: 2
-                  },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
+                  flex: 1,
+                  width: "100%",
+                  height: "100%",
+                  margin: 2
+                }}
+                onPress={() => {
+                  let arr = [];
 
-                  elevation: 5,
-                  marginHorizontal: 15,
-                  marginVertical: 10
+                  arr.push(...this.state.imagePressed, image);
+                  this.setState({ imagePressed: arr });
+                  images.splice(index, 1);
                 }}
               >
-                <Image
+                <View
                   style={{
-                    width: 60,
-                    height: 60,
-                    borderRadius: 3
+                    borderRadius: 3,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 2
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+
+                    elevation: 5,
+                    marginHorizontal: 15,
+                    marginVertical: 10
                   }}
-                  source={{ uri: image.uri }}
-                />
-              </View>
+                >
+                  <Image
+                    style={{
+                      width: 60,
+                      height: 60,
+                      borderRadius: 3
+                    }}
+                    source={{ uri: image.uri }}
+                  />
+                </View>
+              </TouchableHighlight>
+            );
+          })}
+        </ScrollView>
+      );
+    } else {
+      return (
+        <View
+          style={{
+            height: "10%",
+            flexDirection: "row",
+            backfaceVisibility: "hidden",
+            backgroundColor: "#fff",
+            justifyContent: "space-around"
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "#fff",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <TouchableHighlight
+              onPress={() => {
+                let prev = StoreGlobal({ type: "get", key: "saved" });
+                prev.push(this.state.cap);
+                StoreGlobal({ type: "set", key: "saved", value: prev });
+                navigation.navigate("ProfileScreen");
+              }}
+              style={{
+                borderRadius: 10,
+                borderWidth: 3,
+                borderColor: "#605F5E",
+                margin: 30
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  alignItems: "center",
+                  padding: 5,
+                  fontWeight: "bold",
+                  fontFamily: "monospace"
+                }}
+              >
+                Save gallARy
+              </Text>
             </TouchableHighlight>
-          );
-        })}
-      </ScrollView>
-    );
+          </View>
+        </View>
+      );
+    }
   }
   componentDidUpdate() {
     if (
