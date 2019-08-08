@@ -15,6 +15,7 @@ import Slider from "react-native-slider";
 import { ViroARSceneNavigator } from "react-viro";
 import Instructions from "./Instructions";
 import StoreGlobal from "./GLOBALSTATE";
+import SavedARScene from "./SavedARScene";
 
 var sharedProps = {
   apiKey: "7BB9691F-8936-47AC-9FB7-12FD72152B10"
@@ -38,12 +39,20 @@ export default class ViroSample extends Component {
       sliderValue: 5,
       imagePressed: [],
       cap: [],
-      test: null
+      test: null,
+      saved: this.props.navigation.state.params.saved
+        ? this.props.navigation.state.params.saved
+        : null
     };
   }
 
   render() {
     const { navigation } = this.props;
+    // if (this.state.saved) {
+    //   console.log(this.props);
+    //   console.log(this.props.sceneNavigator, "NAV AR");
+    //   this._replaceNextScene();
+    // }
 
     return (
       <View
@@ -76,7 +85,7 @@ export default class ViroSample extends Component {
           <ViroARSceneNavigator
             {...this.state.sharedProps}
             initialScene={{
-              scene: InitialARScene
+              scene: this.state.saved ? SavedARScene : InitialARScene
             }}
             viroAppProps={{
               images: this.state.imagePressed,
@@ -100,6 +109,9 @@ export default class ViroSample extends Component {
       </View>
     );
   }
+  // _replaceNextScene() {
+  //   this.ViroARSceneNavigator.replace({ scene: SavedARScene });
+  // }
   nextScene = () => {
     this.setState({
       status: true,

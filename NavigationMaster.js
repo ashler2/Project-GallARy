@@ -13,6 +13,7 @@ import CanvasPreview from "./CanvasPreview";
 import Profile from "./Profile";
 import CreateUser from "./CreateUser";
 import Login from "./Login";
+import SavedARScene from "./SavedARScene";
 const switcher = createSwitchNavigator({
   homeScreen: Home,
   cameraRollScreen: CameraRoll,
@@ -21,7 +22,8 @@ const switcher = createSwitchNavigator({
   CanvasPreview: CanvasPreview,
   ProfileScreen: Profile,
   createUserScreen: CreateUser,
-  loginScreen: Login
+  loginScreen: Login,
+  SavedARScene: SavedARScene
 });
 const PageNavigator = createAppContainer(switcher);
 
