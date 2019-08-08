@@ -32,41 +32,36 @@ export default class CommentsPage extends Component {
           backgroundColor: "#eb9080"
         }}
       >
-        <Header
+        <TouchableHighlight
+          onPress={() => {
+            navigation.navigate("ProfileScreen");
+          }}
           style={{
-            backgroundColor: "#eb9080"
+            marginTop: 20,
+            marginLeft: 20,
+            position: "absolute",
+            zIndex: 100
           }}
         >
-          <TouchableHighlight
-            onPress={() => {
-              navigation.navigate("ProfileScreen");
-            }}
-            style={{
-              marginTop: 10,
-              marginLeft: 20,
-              position: "absolute",
-              zIndex: 100
-            }}
-          >
-            <Image source={require("./res/back.png")} />
-          </TouchableHighlight>
-          <Text
-            style={{
-              marginTop: 10,
-              marginLeft: 20,
-              position: "absolute",
-              zIndex: 100
-            }}
-            style={{ color: "white" }}
-          >
-            Comments:
-          </Text>
-        </Header>
+          <Image source={require("./res/back.png")} />
+        </TouchableHighlight>
         <Content
           style={{
             backgroundColor: "#eb9080"
           }}
         >
+          <Text
+            style={{
+              fontSize: 24,
+              textAlign: "center",
+              color: "#fff",
+              fontWeight: "bold",
+              fontFamily: "monospace",
+              margin: 20
+            }}
+          >
+            Comments
+          </Text>
           <List>
             <CommentSection />
           </List>
