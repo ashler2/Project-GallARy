@@ -250,7 +250,7 @@ export default class ViroSample extends Component {
       <ScrollView
         horizontal={true}
         style={{
-          backgroundColor: "#eb9080",
+          backgroundColor: "#fff",
           shadowColor: "#000",
           shadowOffset: {
             width: 0,
@@ -268,8 +268,24 @@ export default class ViroSample extends Component {
             StoreGlobal({ type: "set", key: "saved", value: prev });
             navigation.navigate("ProfileScreen");
           }}
+          style={{
+            borderRadius: 10,
+            borderWidth: 3,
+            borderColor: "#605F5E",
+            margin: 30
+          }}
         >
-          <Text> save</Text>
+          <Text
+            style={{
+              fontSize: 20,
+              alignItems: "center",
+              padding: 5,
+              fontWeight: "bold",
+              fontFamily: "monospace"
+            }}
+          >
+            Save gallARy
+          </Text>
         </TouchableHighlight>
         {images.map((image, index) => {
           return (
