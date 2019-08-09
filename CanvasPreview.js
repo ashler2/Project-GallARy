@@ -28,16 +28,28 @@ class CanvasPreview extends Component {
         }}
       >
         {this.props.cap.map((image, index) => {
+          console.log(image.position[0], image.position[1]);
+          let style = {
+            position: "absolute",
+            width: image.width * 100,
+            height: image.height * 100
+          };
+
+          if (image.position[0] < 0) {
+            style.right = 200 - image.position[0] * 100;
+          }
+          if (image.position[0] > 0) {
+            style.left = 200 - image.position[0] * 100;
+          }
+          if (image.position[1] < 0) {
+            style.bottom = 50 - image.position[1] * 45;
+          }
+          if (image.position[1] > 0) {
+            style.top = 50 - image.position[1] * 45;
+          }
+
           return (
-            <Image
-              source={{ uri: image.uri }}
-              style={{
-                width: image.width * 100,
-                height: image.height * 100,
-                right: image.position[0] * 50,
-                top: image.position[1] * 50
-              }}
-            />
+            <Image key={index} source={{ uri: image.uri }} style={style} />
           );
         })}
       </View>
