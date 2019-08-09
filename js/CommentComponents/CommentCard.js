@@ -25,7 +25,14 @@ export default class CommentSection extends Component {
     return (
       <ListItem style={{ borderTopWidth: 1, borderBottomWidth: 1 }} avatar>
         <Left>
-          <Thumbnail small source={require("../res/temp2.png")} />
+          <Thumbnail
+            small
+            source={
+              !this.props.avatarUrl
+                ? require("../res/temp2.png")
+                : require("../res/Rex.jpg")
+            }
+          />
         </Left>
         <Body>
           <Text

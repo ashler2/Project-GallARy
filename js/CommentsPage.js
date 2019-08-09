@@ -74,6 +74,7 @@ export default class CommentsPage extends Component {
               comment={"great design"}
               username={"Holly"}
               date={"1hr ago"}
+              avatarUrl={false}
             />
 
             {this.state.posted ? (
@@ -81,6 +82,7 @@ export default class CommentsPage extends Component {
                 comment={this.state.comment}
                 username={this.state.username}
                 date={this.state.date}
+                avatarUrl={true}
               />
             ) : null}
           </List>
