@@ -37,9 +37,11 @@ export default class Login extends Component {
           style={{
             marginTop: 20,
             marginLeft: 20,
+            backgroundColor: "#eb9080",
             position: "absolute",
             zIndex: 100
           }}
+          underlayColor={"#eb9080"}
         >
           <Image source={require("./js/res/back.png")} />
         </TouchableHighlight>

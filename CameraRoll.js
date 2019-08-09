@@ -44,6 +44,7 @@ export default class CameraRoll extends Component {
             onPress={() => {
               navigation.navigate("homeScreen");
             }}
+            underlayColor={"#eb9080"}
           >
             <Image source={require("./js/res/back.png")} />
           </TouchableHighlight>
@@ -57,6 +58,7 @@ export default class CameraRoll extends Component {
                 images: this.state.selected
               });
             }}
+            underlayColor={"#eb9080"}
             style={styles.button}
           >
             <Text style={styles.buttonText}>Create gallARy</Text>

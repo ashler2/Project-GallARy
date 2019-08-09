@@ -88,6 +88,7 @@ export default class Instructions extends Component {
               this.props.nextScene();
             }}
             style={styles.button}
+            underlayColor={"#eb9080"}
           >
             <Text style={styles.buttonText}>3. Begin!</Text>
           </TouchableOpacity>

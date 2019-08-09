@@ -41,6 +41,7 @@ export default class Home extends Component {
               navigation.navigate("loginScreen");
             }}
             style={styles.button}
+            underlayColor={"#eb9080"}
           >
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
@@ -49,6 +50,7 @@ export default class Home extends Component {
               navigation.navigate("createUserScreen");
             }}
             style={styles.button}
+            underlayColor={"#eb9080"}
           >
             <Text style={styles.buttonText}>Sign up</Text>
           </TouchableOpacity>

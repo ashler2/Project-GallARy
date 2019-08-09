@@ -97,6 +97,7 @@ class Profile extends Component {
                     navigation.navigate("cameraRollScreen");
                   }}
                   style={styles.button}
+                  underlayColor={"#eb9080"}
                 >
                   <Text style={styles.buttonText}>New gallAry</Text>
                 </TouchableOpacity>

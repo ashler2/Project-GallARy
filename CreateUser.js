@@ -47,6 +47,7 @@ export default class CreateUser extends Component {
             position: "absolute",
             zIndex: 100
           }}
+          underlayColor={"#eb9080"}
         >
           <Image source={require("./js/res/back.png")} />
         </TouchableHighlight>

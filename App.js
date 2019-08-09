@@ -145,7 +145,6 @@ export default class ViroSample extends Component {
           }}
         >
           <TouchableOpacity
-            underlayColor="#00000000"
             title="Learn More"
             style={{
               borderRadius: 10,
@@ -153,6 +152,7 @@ export default class ViroSample extends Component {
               borderColor: "#fff",
               width: "80%"
             }}
+            underlayColor={"#eb9080"}
             onPress={() => {
               {
                 this.state.toggleAllowed ? this._onButtonTap() : null;
