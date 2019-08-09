@@ -14,6 +14,7 @@ import Profile from "./Profile";
 import CreateUser from "./CreateUser";
 import Login from "./Login";
 import CommentsPage from "./js/CommentsPage";
+import SavedARScene from "./SavedARScene";
 const switcher = createSwitchNavigator({
   homeScreen: Home,
   cameraRollScreen: CameraRoll,
@@ -23,7 +24,8 @@ const switcher = createSwitchNavigator({
   ProfileScreen: Profile,
   createUserScreen: CreateUser,
   loginScreen: Login,
-  CommentsPage: CommentsPage
+  CommentsPage: CommentsPage,
+  SavedARScene: SavedARScene
 });
 const PageNavigator = createAppContainer(switcher);
 

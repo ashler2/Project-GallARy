@@ -125,8 +125,14 @@ class Profile extends Component {
           <Row size={2.9} style={{ backgroundColor: "#fff" }}>
             <ScrollView>
               <Content>
-                {this.state.store.map(image => {
-                  return <GallaryCard cap={image} navigation={navigation} />;
+                {this.state.store.map((image, index) => {
+                  return (
+                    <GallaryCard
+                      cap={image}
+                      navigation={navigation}
+                      index={index}
+                    />
+                  );
                 })}
               </Content>
             </ScrollView>

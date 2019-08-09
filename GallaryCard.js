@@ -72,8 +72,8 @@ export default class GallaryCard extends Component {
               <Button
                 transparent
                 onPress={() => {
-                  navigation.navigate("instructions", {
-                    cap: this.props.cap
+                  navigation.navigate("arScreen", {
+                    saved: this.props.cap
                   });
                 }}
               >
