@@ -30,10 +30,12 @@ class CanvasPreview extends Component {
             <Image
               source={{ uri: image.uri }}
               style={{
+                alignItems: "center",
+                justifyContent: "center",
                 width: image.width * 100,
                 height: image.height * 100,
-                right: image.position[0] * 50,
-                top: image.position[1] * 50
+                right: (image.position[0] - image.width / 2) * 100,
+                top: (image.position[1] + image.height / 2) * 100
               }}
             />
           );
