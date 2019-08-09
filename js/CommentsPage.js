@@ -71,8 +71,8 @@ export default class CommentsPage extends Component {
           </Text>
           <List>
             <CommentSection
-              comment={"great design"}
-              username={"Holly"}
+              comment={"Good Looking Folks!"}
+              username={"Rich"}
               date={"1hr ago"}
               avatarUrl={false}
             />

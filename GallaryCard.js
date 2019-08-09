@@ -38,7 +38,7 @@ export default class GallaryCard extends Component {
                 }}
               />
               <Body>
-                <Text>My Best Pal</Text>
+                <Text>Leeds Leeds Leeds</Text>
                 <Text note>By Rex</Text>
               </Body>
             </Left>
@@ -63,9 +63,14 @@ export default class GallaryCard extends Component {
               </Button>
             </Left>
             <Body>
-              <Button transparent>
+              <Button
+                transparent
+                onPress={() => {
+                  navigation.navigate("CommentsPage");
+                }}
+              >
                 <Image source={require("./js/res/comments.png")} />
-                <Text style={{ color: "#605F5E" }}>4 Comments</Text>
+                <Text style={{ color: "#605F5E" }}>1 Comments</Text>
               </Button>
             </Body>
             <Right>

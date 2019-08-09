@@ -11,8 +11,10 @@ class CanvasPreview extends Component {
     super(props);
     this.state = {};
   }
+
   render() {
     console.log(this.props, "<<<< canvas props");
+    console.log(this.state);
     const { navigation } = this.props;
     return (
       <View
