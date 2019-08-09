@@ -40,7 +40,7 @@ export default class CommentSection extends Component {
               color: "#605F5E"
             }}
           >
-            Test_User123
+            {this.props.username}
           </Text>
           <Text
             style={{
@@ -50,15 +50,13 @@ export default class CommentSection extends Component {
             }}
             note
           >
-            1 hour ago
+            {this.props.date}
           </Text>
           <Text
             style={{ color: "white", textAlign: "justify", marginRight: 30 }}
             note
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus
-            ad neque voluptatem corrupti? Eveniet amet iusto aliquid corporis ad
-            laborum?
+            {this.props.comment}
           </Text>
         </Body>
         {/* <Right>
