@@ -38,7 +38,7 @@ export default class GallaryCard extends Component {
                 }}
               />
               <Body>
-                <Text>Leeds Leeds Leeds</Text>
+                <Text>My Best Pals</Text>
                 <Text note>By Rex</Text>
               </Body>
             </Left>
@@ -59,7 +59,7 @@ export default class GallaryCard extends Component {
             <Left>
               <Button transparent>
                 <Image source={require("./js/res/heart.png")} />
-                <Text style={{ color: "#605F5E" }}>12 Likes</Text>
+                <Text style={{ color: "#605F5E" }}>0 Likes</Text>
               </Button>
             </Left>
             <Body>
@@ -70,7 +70,7 @@ export default class GallaryCard extends Component {
                 }}
               >
                 <Image source={require("./js/res/comments.png")} />
-                <Text style={{ color: "#605F5E" }}>1 Comments</Text>
+                <Text style={{ color: "#605F5E" }}>0 Comments</Text>
               </Button>
             </Body>
             <Right>

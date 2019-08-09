@@ -135,6 +135,61 @@ class Profile extends Component {
                     />
                   );
                 })}
+                <Card>
+                  <CardItem>
+                    <Left>
+                      <Thumbnail
+                        small
+                        source={{
+                          uri:
+                            "https://d339b5nop2tkmp.cloudfront.net/uploads/pictures/456/Viola_201044.jpg"
+                        }}
+                      />
+                      <Body>
+                        <Text>Leeds Leeds Leeds</Text>
+                        <Text note>By Rex</Text>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Image
+                      source={require("./js/res/Northcoders.jpeg")}
+                      style={{ height: 200, width: null, flex: 1 }}
+                    />
+                  </CardItem>
+                  <CardItem>
+                    <Left>
+                      <Button transparent>
+                        <Image source={require("./js/res/heart.png")} />
+                        <Text style={{ color: "#605F5E" }}>12 Likes</Text>
+                      </Button>
+                    </Left>
+                    <Body>
+                      <Button
+                        transparent
+                        onPress={() => {
+                          navigation.navigate("CommentsPage");
+                        }}
+                      >
+                        <Image source={require("./js/res/comments.png")} />
+                        <Text style={{ color: "#605F5E" }}>1 Comments</Text>
+                      </Button>
+                    </Body>
+                    <Right>
+                      <Button
+                        transparent
+                        onPress={() => {
+                          navigation.navigate("arScreen", {
+                            saved: this.props.cap
+                          });
+                        }}
+                      >
+                        {/* <Image source={require("./js/res/ar_icon.png")} /> */}
+                        <Text style={{ color: "#605F5E" }}>View in AR</Text>
+                      </Button>
+                    </Right>
+                  </CardItem>
+                </Card>
               </Content>
             </ScrollView>
           </Row>

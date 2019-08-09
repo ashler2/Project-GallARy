@@ -348,7 +348,7 @@ export default class ViroSample extends Component {
                 let prev = StoreGlobal({ type: "get", key: "saved" });
                 prev.push(this.state.cap);
                 StoreGlobal({ type: "set", key: "saved", value: prev });
-                navigation.navigate("ProfileScreen");
+                navigation.navigate("saveInfoScreen");
               }}
               style={{
                 borderRadius: 10,
