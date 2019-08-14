@@ -8,8 +8,8 @@ import {
   Input,
   Left,
   Body,
-  Picker,
-  Icon
+  Icon,
+  Picker
 } from "native-base";
 import {
   TouchableHighlight,
@@ -93,14 +93,15 @@ export default class SaveInfo extends Component {
               placeholder="Description"
               placeholderTextColor="#fff"
               multiline={true}
-              numberOfLines={3}
+              numberOfLines={1}
               style={{ color: "#fff" }}
               onChangeText={description => this.setState({ description })}
               value={this.state.description}
             />
           </Item>
-          <Item picker last style={{ color: "fff" }}>
+          <Item picker last style={{ color: "fff" }} color="#fff">
             <Picker
+              color="#fff"
               mode="dropdown"
               iosIcon={<Icon name="arrow-down" />}
               placeholder="Share your design?"
@@ -108,18 +109,11 @@ export default class SaveInfo extends Component {
               placeholderIconColor="#fff"
               selectedValue={this.state.public}
               onValueChange={this.onValueChange.bind(this)}
-              style={{ color: "fff" }}
+              style={{ color: "fff", placeholderText: { color: "fff" } }}
+              itemStyle={{ color: "fff" }}
             >
-              <Picker.Item
-                label="Public"
-                value={true}
-                style={{ color: "fff" }}
-              />
-              <Picker.Item
-                label="Private"
-                value={false}
-                style={{ color: "fff" }}
-              />
+              <Picker.Item color="#eb9080" label="Public" value={true} />
+              <Picker.Item color="#eb9080" label="Private" value={false} />
             </Picker>
           </Item>
         </Form>

@@ -27,12 +27,12 @@ export default class CommentsPage extends Component {
       password: true,
       comment: "",
       posted: false,
-      date: "Just now"
+      date: "Just now",
+      input: ""
     };
   }
   render() {
     const { navigation } = this.props;
-    console.log(this.state);
     return (
       <Container
         style={{
@@ -100,14 +100,17 @@ export default class CommentsPage extends Component {
                 placeholder="Enter Comment"
                 multiline={true}
                 numberOfLines={4}
-                onChangeText={comment => this.setState({ comment })}
-                value={this.state.comment}
+                onChangeText={comment =>
+                  this.setState({ comment, input: comment })
+                }
+                value={this.state.input}
               />
             </Item>
           </Form>
           <TouchableOpacity
             onPress={() => {
-              this.setState({ posted: true });
+              this.setState({ posted: true, input: "" });
+
               // navigation.navigate("ProfileScreen");
             }}
             style={{
