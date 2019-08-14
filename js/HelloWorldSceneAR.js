@@ -1,56 +1,135 @@
-'use strict';
+"use strict";
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
 
 import {
   ViroARScene,
-  ViroText,
+  ViroBox,
+  ViroMaterials,
+  ViroNode,
+  ViroImage,
   ViroConstants,
-} from 'react-viro';
+  ViroButton,
+  ViroText,
+  ViroFlexView
+} from "react-viro";
+import Frame from "./Frame.js";
 
 export default class HelloWorldSceneAR extends Component {
+  constructor(props) {
+    super(props);
 
-  constructor() {
-    super();
-
-    // Set initial state here
     this.state = {
-      text : "Initializing AR..."
+      text: "Initializing AR...",
+      height: 5,
+      width: 5,
+      status: "height",
+      images: this.props.arSceneNavigator.viroAppProps.images,
+      render: this.props.arSceneNavigator.viroAppProps.clicked,
+      cap: this.props.arSceneNavigator.viroAppProps.cap,
+      visible: true
     };
 
-    // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
   }
 
   render() {
-    return (
-      <ViroARScene onTrackingUpdated={this._onInitialized} >
-        <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />
-      </ViroARScene>
+    let { images } = this.state;
+    return this.state.render ? (
+      this.statusTrue()
+    ) : (
+      <ViroARScene
+        onTrackingUpdated={this._onInitialized}
+        displayPointCloud={true}
+      />
     );
   }
+  componentDidUpdate = (prevProps, prevState) => {
+    const {
+      arSceneNavigator: {
+        viroAppProps: { clicked, control, sliderHeight, sliderWidth, images }
+      }
+    } = this.props;
 
+    if (clicked !== this.state.render) {
+      this.setState({ render: true });
+    }
+    if (control !== this.state.status) {
+      this.setState({
+        status: control
+      });
+    }
+    if (control === "width" && sliderWidth !== this.state.width) {
+      this.setState({ width: sliderWidth });
+    }
+    if (control === "height" && sliderHeight !== this.state.height) {
+      this.setState({ height: sliderHeight });
+    }
+    if (images !== this.state.images) {
+      this.setState({ images: images });
+    }
+  };
+  statusTrue = () => {
+    let { images } = this.state;
+    return (
+      <ViroARScene
+        onTrackingUpdated={this._onInitialized}
+        displayPointCloud={true}
+      >
+        <ViroBox
+          position={[0, 0, -0.2]}
+          height={this.state.height}
+          width={this.state.width}
+          length={1}
+          // onPinch={this._onPinch}
+          scale={[0.3, 0.3, 0.1]}
+          materials={["grid"]}
+          opacity={0.8}
+          visible={this.state.visible}
+        />
+        <ViroButton
+          source={require("./res/close.png")}
+          position={[this.state.width / 10, this.state.height / 10, -0.1]}
+          height={0.1}
+          width={0.1}
+          onClick={this.handleClose}
+        />
+
+        {images.map((image, index) => {
+          return (
+            <Frame
+              heightWidthMain={{
+                height: this.state.height,
+                width: this.state.width
+              }}
+              size={[this.state.height]}
+              image={image}
+              key={index}
+              cap={this.state.cap}
+              index={index}
+            />
+          );
+        })}
+      </ViroARScene>
+    );
+  };
+  handleClose = () => {
+    this.setState({ visible: !this.state.visible });
+  };
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
-      this.setState({
-        text : "Hello World!"
-      });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
     }
   }
 }
 
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: 'Arial',
-    fontSize: 30,
-    color: '#ffffff',
-    textAlignVertical: 'center',
-    textAlign: 'center',  
-  },
+ViroMaterials.createMaterials({
+  grid: {
+    diffuseTexture: require("./res/grid.png")
+  }
 });
 
 module.exports = HelloWorldSceneAR;

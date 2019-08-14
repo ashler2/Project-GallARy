@@ -1,156 +1,477 @@
-/**
- * Copyright (c) 2017-present, Viro, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
 import React, { Component } from "react";
 import {
   AppRegistry,
   Text,
   View,
+  ScrollView,
   StyleSheet,
   PixelRatio,
-  TouchableHighlight
+  TouchableHighlight,
+  Button,
+  Image,
+  TouchableOpacity
 } from "react-native";
+import Slider from "react-native-slider";
+import { ViroARSceneNavigator } from "react-viro";
+import Instructions from "./Instructions";
+import StoreGlobal from "./GLOBALSTATE";
+import SavedARScene from "./SavedARScene";
 
-import { ViroVRSceneNavigator, ViroARSceneNavigator } from "react-viro";
-
-/*
- TODO: Insert your API key below
- */
 var sharedProps = {
   apiKey: "7BB9691F-8936-47AC-9FB7-12FD72152B10"
 };
-
-// Sets the default scene you want for AR and VR
+var Empty = require("./js/empty");
 var InitialARScene = require("./js/HelloWorldSceneAR");
-var InitialVRScene = require("./js/HelloWorldScene");
-
-var UNSET = "UNSET";
-var VR_NAVIGATOR_TYPE = "VR";
-var AR_NAVIGATOR_TYPE = "AR";
-
-// This determines which type of experience to launch in, or UNSET, if the user should
-// be presented with a choice of AR or VR. By default, we offer the user a choice.
-var defaultNavigatorType = UNSET;
 
 export default class ViroSample extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      navigatorType: defaultNavigatorType,
-      sharedProps: sharedProps
+      sharedProps: sharedProps,
+      status: false,
+      fullCamera: "100%",
+      toggler: "height",
+      oppToggler: "Width",
+      toggleAllowed: true,
+      sliderValueWidth: 5,
+      sliderValueHeight: 5,
+      sliderValue: 5,
+      imagePressed: [],
+      cap: [],
+      test: null,
+      saved: this.props.navigation.state.params.saved
+        ? this.props.navigation.state.params.saved
+        : null
     };
-    this._getExperienceSelector = this._getExperienceSelector.bind(this);
-    this._getARNavigator = this._getARNavigator.bind(this);
-    this._getVRNavigator = this._getVRNavigator.bind(this);
-    this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(
-      this
-    );
-    this._exitViro = this._exitViro.bind(this);
   }
 
-  // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
-  // if you are building a specific type of experience.
   render() {
-    if (this.state.navigatorType == UNSET) {
-      return this._getExperienceSelector();
-    } else if (this.state.navigatorType == VR_NAVIGATOR_TYPE) {
-      return this._getVRNavigator();
-    } else if (this.state.navigatorType == AR_NAVIGATOR_TYPE) {
-      return this._getARNavigator();
-    }
-  }
+    const { navigation } = this.props;
+    // if (this.state.saved) {
+    //   console.log(this.props);
+    //   console.log(this.props.sceneNavigator, "NAV AR");
+    //   this._replaceNextScene();
+    // }
 
-  // Presents the user with a choice of an AR or VR experience
-  _getExperienceSelector() {
     return (
-      <View style={localStyles.outer}>
-        <View style={localStyles.inner}>
-          <Text style={localStyles.titleText}>
-            Choose your desired experience:
-          </Text>
+      <View
+        style={{
+          height: "100%",
+          backfaceVisibility: "hidden",
+          marginTop: 23
+        }}
+      >
+        <TouchableHighlight
+          style={{
+            marginTop: 20,
+            marginLeft: 20,
+            position: "absolute",
+            backgroundColor: "transparent",
+            backfaceVisibility: "hidden",
+            zIndex: 100
+          }}
+          onPress={() => {
+            navigation.navigate("cameraRollScreen");
+          }}
+        >
+          <Image source={require("./js/res/back.png")} />
+        </TouchableHighlight>
+        <View
+          style={{
+            height: this.state.fullCamera
+          }}
+        >
+          <ViroARSceneNavigator
+            {...this.state.sharedProps}
+            initialScene={{
+              scene: this.state.saved ? SavedARScene : InitialARScene
+            }}
+            viroAppProps={{
+              images: this.state.imagePressed,
+              clicked: this.state.status,
+              control: this.state.toggler,
+              sliderHeight: this.state.sliderValueHeight,
+              sliderWidth: this.state.sliderValueWidth,
+              cap: things => {
+                let { index } = things;
+                let array = [...this.state.cap];
+                array[index] = things;
+                this.setState({
+                  cap: array
+                });
+              },
+              test: this.state.test
+            }}
+          />
+        </View>
+        {this.state.status ? this.NavBar() : this.overlay()}
+      </View>
+    );
+  }
+  // _replaceNextScene() {
+  //   this.ViroARSceneNavigator.replace({ scene: SavedARScene });
+  // }
+  nextScene = () => {
+    this.setState({
+      status: true,
+      fullCamera: "87%",
+      test: true
+    });
+  };
 
-          <TouchableHighlight
-            style={localStyles.buttons}
-            onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
-            underlayColor={"#68a0ff"}
-          >
-            <Text style={localStyles.buttonText}>AR</Text>
-          </TouchableHighlight>
+  overlay() {
+    return <Instructions nextScene={this.nextScene} />;
+  }
+  NavBar = () => (this.state.toggleAllowed ? this.sizeBar() : this.photoBar());
 
-          <TouchableHighlight
-            style={localStyles.buttons}
-            onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}
-            underlayColor={"#68a0ff"}
+  sizeBar() {
+    return (
+      <View
+        style={{
+          height: "10%",
+          flexDirection: "row",
+          backfaceVisibility: "hidden",
+          backgroundColor: "#eb9080",
+          justifyContent: "space-around"
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "#eb9080",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <TouchableOpacity
+            title="Learn More"
+            style={{
+              borderRadius: 10,
+              borderWidth: 2,
+              borderColor: "#fff",
+              width: "80%"
+            }}
+            underlayColor={"#eb9080"}
+            onPress={() => {
+              {
+                this.state.toggleAllowed ? this._onButtonTap() : null;
+                if (this.state.toggler === "width") {
+                  this.setState({
+                    oppToggler: "Width"
+                  });
+                }
+
+                if (this.state.toggler === "height") {
+                  this.setState({
+                    oppToggler: "Height"
+                  });
+                }
+              }
+            }}
           >
-            <Text style={localStyles.buttonText}>VR</Text>
-          </TouchableHighlight>
+            <Text
+              style={{
+                fontSize: 16,
+                color: "#fff",
+                alignItems: "center",
+                padding: 2,
+                fontWeight: "bold",
+                fontFamily: "monospace",
+                textAlign: "center"
+              }}
+            >
+              Change Canvas {this.state.oppToggler}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flex: 2,
+            backgroundColor: "#eb9080"
+          }}
+        >
+          <Slider
+            minimumTrackTintColor="#fff"
+            thumbTintColor="#fff"
+            value={this.state.sliderValue}
+            onValueChange={value => {
+              if (this.state.toggler === "width") {
+                this.setState({
+                  sliderValueWidth: value
+                });
+              }
+
+              if (this.state.toggler === "height") {
+                this.setState({
+                  sliderValueHeight: value
+                });
+              }
+            }}
+            maximumValue={10}
+            style={{
+              margin: 10,
+              alignItems: "stretch",
+              justifyContent: "center"
+            }}
+          />
+        </View>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "#eb9080",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <TouchableOpacity
+            underlayColor="#00000000"
+            title="Confirm Canvas"
+            style={{
+              borderRadius: 10,
+              borderWidth: 2,
+              borderColor: "#fff",
+              width: "80%"
+            }}
+            onPress={() => {
+              this.allowToggle();
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                color: "#fff",
+                alignItems: "center",
+                padding: 2,
+                fontWeight: "bold",
+                fontFamily: "monospace",
+                textAlign: "center"
+              }}
+            >
+              Confirm Canvas Size
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
   }
+  photoBar() {
+    const images = this.props.navigation.state.params.images;
 
-  // Returns the ViroARSceneNavigator which will start the AR experience
-  _getARNavigator() {
-    return (
-      <ViroARSceneNavigator
-        {...this.state.sharedProps}
-        initialScene={{ scene: InitialARScene }}
-      />
-    );
+    const { navigation } = this.props;
+    if (images.length >= 1) {
+      return (
+        <ScrollView
+          horizontal={true}
+          style={{
+            backgroundColor: "#fff",
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2
+            },
+            shadowOpacity: 0.5,
+            shadowRadius: 3.84,
+            elevation: 6
+          }}
+        >
+          {images.map((image, index) => {
+            return (
+              <TouchableHighlight
+                key={index}
+                underlayColor="white"
+                style={{
+                  flex: 1,
+                  width: "100%",
+                  height: "100%",
+                  margin: 2
+                }}
+                onPress={() => {
+                  let arr = [];
+
+                  arr.push(...this.state.imagePressed, image);
+                  this.setState({ imagePressed: arr });
+                  images.splice(index, 1);
+                }}
+              >
+                <View
+                  style={{
+                    borderRadius: 3,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 2
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+
+                    elevation: 5,
+                    marginHorizontal: 15,
+                    marginVertical: 10
+                  }}
+                >
+                  <Image
+                    style={{
+                      width: 60,
+                      height: 60,
+                      borderRadius: 3
+                    }}
+                    source={{ uri: image.uri }}
+                  />
+                </View>
+              </TouchableHighlight>
+            );
+          })}
+        </ScrollView>
+      );
+    } else {
+      return (
+        <View
+          style={{
+            height: "10%",
+            flexDirection: "row",
+            backfaceVisibility: "hidden",
+            backgroundColor: "#fff",
+            justifyContent: "space-around"
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "#fff",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <TouchableHighlight
+              onPress={() => {
+                let prev = StoreGlobal({ type: "get", key: "saved" });
+                prev.push(this.state.cap);
+                StoreGlobal({ type: "set", key: "saved", value: prev });
+                navigation.navigate("saveInfoScreen");
+              }}
+              style={{
+                borderRadius: 10,
+                borderWidth: 3,
+                borderColor: "#605F5E",
+                margin: 30
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  alignItems: "center",
+                  padding: 5,
+                  fontWeight: "bold",
+                  fontFamily: "monospace"
+                }}
+              >
+                Save gallARy
+              </Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      );
+    }
   }
-
-  // Returns the ViroSceneNavigator which will start the VR experience
-  _getVRNavigator() {
-    return (
-      <ViroVRSceneNavigator
-        {...this.state.sharedProps}
-        initialScene={{ scene: InitialVRScene }}
-        onExitViro={this._exitViro}
-      />
-    );
+  componentDidUpdate() {
+    if (
+      this.state.toggler === "width" &&
+      this.state.sliderValue !== this.state.sliderValueWidth
+    ) {
+      this.setState({ sliderValue: this.state.sliderValueWidth });
+    }
+    if (
+      this.state.toggler === "height" &&
+      this.state.sliderValue !== this.state.sliderValueHeight
+    ) {
+      this.setState({ sliderValue: this.state.sliderValueHeight });
+    }
   }
-
-  // This function returns an anonymous/lambda function to be used
-  // by the experience selector buttons
-  _getExperienceButtonOnPress(navigatorType) {
-    return () => {
-      this.setState({
-        navigatorType: navigatorType
+  allowToggle() {
+    this.setState({ toggleAllowed: false });
+  }
+  _onButtonTap() {
+    if (this.state.toggler !== "width") {
+      return this.setState({
+        toggler: "width"
       });
-    };
-  }
+    }
 
-  // This function "exits" Viro by setting the navigatorType to UNSET.
-  _exitViro() {
-    this.setState({
-      navigatorType: UNSET
-    });
+    if (this.state.toggler === "width") {
+      return this.setState({
+        toggler: "height"
+      });
+    }
   }
 }
 
 var localStyles = StyleSheet.create({
-  viroContainer: {
+  nav: {
     flex: 1,
-    backgroundColor: "black"
+    flexDirection: "row",
+    backfaceVisibility: "visible"
+  },
+  baseView: {
+    position: "relative",
+    flex: 9,
+    zIndex: 0,
+    backgroundColor: "rgba(52, 52, 52, 0.8)",
+    backfaceVisibility: "hidden",
+    alignSelf: "stretch",
+    width: "100%"
+    // opacity: 1
+  },
+  ARView: {
+    position: "relative",
+    width: "100%",
+    flex: 1,
+    marginTop: 40,
+    marginBottom: 40,
+
+    zIndex: 10
+  },
+  instructions: {
+    flex: 1,
+
+    alignContent: "stretch",
+    position: "absolute",
+    top: 150,
+
+    alignSelf: "center",
+    padding: 10,
+    width: "100%",
+    fontSize: 40,
+    textAlign: "center",
+    backgroundColor: "transparent",
+    backfaceVisibility: "hidden",
+    marginTop: 40,
+    zIndex: 10
+  },
+  instructionsText: {
+    backfaceVisibility: "hidden",
+    backgroundColor: "yellow",
+    fontSize: 30,
+    zIndex: 100
+  },
+  instructionsBar: {
+    backfaceVisibility: "hidden",
+    width: "110%",
+    backgroundColor: "blue",
+    position: "absolute",
+    top: 400,
+    zIndex: 100
   },
   outer: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "black"
+    height: 2
   },
   inner: {
     flex: 1,
     flexDirection: "column",
-    alignItems: "center",
-    backgroundColor: "black"
+    alignItems: "center"
   },
   titleText: {
     paddingTop: 30,
@@ -160,9 +481,15 @@ var localStyles = StyleSheet.create({
     fontSize: 25
   },
   buttonText: {
-    color: "#fff",
-    textAlign: "center",
-    fontSize: 20
+    flex: 1,
+    position: "absolute",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    top: "25%",
+    right: 10,
+    width: 80,
+    height: 220
   },
   buttons: {
     height: 80,
@@ -171,7 +498,7 @@ var localStyles = StyleSheet.create({
     paddingBottom: 20,
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor: "#68a0cf",
+
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#fff"
@@ -183,7 +510,7 @@ var localStyles = StyleSheet.create({
     paddingBottom: 10,
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor: "#68a0cf",
+
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#fff"

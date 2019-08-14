@@ -1,7 +1,7 @@
-import { AppRegistry } from 'react-native';
-import App from './App.js';
+import { AppRegistry } from "react-native";
+import NavigationMaster from "./NavigationMaster.js";
 
-AppRegistry.registerComponent('GallAry', () => App);
+AppRegistry.registerComponent("GallAry", () => NavigationMaster);
 
-// The below line is necessary for use with the TestBed App
-AppRegistry.registerComponent('ViroSample', () => App);
+// The below line is necessary for use with the TestBed NavigationMaster
+AppRegistry.registerComponent("ViroSample", () => NavigationMaster);

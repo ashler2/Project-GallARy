@@ -1,42 +1,55 @@
-'use strict';
+"use strict";
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
 
 import {
-  ViroScene,
-  ViroText,
-  Viro360Image,
-} from 'react-viro';
+  ViroARScene,
+  ViroBox,
+  ViroMaterials,
+  ViroNode,
+  ViroImage
+} from "react-viro";
 
-export default class HelloWorldScene extends Component {
-
+export default class HelloWorldSceneAR extends Component {
   constructor() {
     super();
 
-    this.state = {} // Set initial state here
+    this.state = {
+      text: "Initializing AR...",
+      times: [1, 2, 3, 4],
+      pos: 1
+    };
+
+    this._onInitialized = this._onInitialized.bind(this);
   }
 
   render() {
     return (
-      <ViroScene>
-        <Viro360Image source={require('./res/guadalupe_360.jpg')} />
-        <ViroText text="Hello World!" width={2} height={2} position={[0, 0, -2]} style={styles.helloWorldTextStyle} />
-      </ViroScene>
+      <ViroARScene
+        onTrackingUpdated={this._onInitialized}
+        displayPointCloud={true}
+      >
+        <ViroNode position={[0, 0, 0]} dragType="FixedToWorld">
+          <ViroBox
+            position={[0, 0, -1]}
+            height={5}
+            width={5}
+            length={1}
+            scale={[0.3, 0.3, 0.1]}
+            materials={["grid"]}
+          />
+        </ViroNode>
+      </ViroARScene>
     );
   }
-
 }
 
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: 'Arial',
-    fontSize: 60,
-    color: '#ffffff',
-    textAlignVertical: 'center',
-    textAlign: 'center',  
-  },
+ViroMaterials.createMaterials({
+  grid: {
+    diffuseTexture: require("./res/grid_bg.jpg")
+  }
 });
 
-module.exports = HelloWorldScene;
+module.exports = HelloWorldSceneAR;
