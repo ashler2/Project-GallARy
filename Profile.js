@@ -37,7 +37,7 @@ class Profile extends Component {
           marginTop: 23
         }}
       >
-        <Header style={{ backgroundColor: "#eb9080" }}>
+        <Header style={{ backgroundColor: "#eb9080", height: 70 }}>
           {/* <Left>
             <Button transparent>
               <Icon name="menu" />
@@ -45,7 +45,7 @@ class Profile extends Component {
           </Left> */}
           <Body
             style={{
-              flex: 1,
+              flex: 1.2,
               alignItems: "center"
             }}
           >
@@ -55,7 +55,8 @@ class Profile extends Component {
                 height: 50,
                 width: 170,
                 flex: 1,
-                alignContent: "center"
+                alignContent: "center",
+                marginTop: 23
               }}
             />
           </Body>

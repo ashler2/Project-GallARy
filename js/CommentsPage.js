@@ -36,7 +36,8 @@ export default class CommentsPage extends Component {
     return (
       <Container
         style={{
-          backgroundColor: "#eb9080"
+          backgroundColor: "#eb9080",
+          marginTop: 23
         }}
       >
         <TouchableHighlight
